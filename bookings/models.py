@@ -32,6 +32,7 @@ class Booking(models.Model):
     owner = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="bookings")
     booking_type = models.IntegerField(choices=BOOKING_TYPE, default=0)
+    pet = models.ForeignKey(Pet, on_delete=models.CASCADE, related_name="bookings", null=True)
 
 
 class Review(models.Model):
