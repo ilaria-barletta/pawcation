@@ -1,3 +1,4 @@
 from django.contrib import admin
+from .models import Pet, Booking, Review
 
-# Register your models here.
+admin.site.register([Pet, Booking, Review])
