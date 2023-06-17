@@ -34,6 +34,12 @@ class Booking(models.Model):
     booking_type = models.IntegerField(choices=BOOKING_TYPE, default=0)
     pet = models.ForeignKey(Pet, on_delete=models.CASCADE, related_name="bookings", null=True)
 
+    class Meta:
+        ordering = ["-start_date"]
+
+    def __str__(self):
+        return f'Booking for {self.pet.name} from {self.start_date.strftime("%x")} to {self.end_date.strftime("%x")}'
+
 
 class Review(models.Model):
     score = models.IntegerField(validators=[
