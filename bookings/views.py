@@ -12,3 +12,8 @@ class Home(generic.TemplateView):
 class PetList(generic.ListView):
     model = Pet
     template_name = "pets.html"
+
+    # Only show Pets for the current user 
+    # and not every pet in the database
+    def get_queryset(self):
+        return Pet.objects.filter(owner=self.request.user)
