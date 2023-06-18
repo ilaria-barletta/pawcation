@@ -52,4 +52,6 @@ class Review(models.Model):
         Booking, related_name="booking", on_delete=models.CASCADE, null=True)
     
     def __str__(self):
-        return f'Review for booking on {self.booking.start_date.strftime("%x")}'
+        if self.booking:
+            return f'Review for booking on {self.booking.start_date.strftime("%x")}'
+        return 'Review with no booking' 

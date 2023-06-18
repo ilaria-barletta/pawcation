@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views import generic
 from .models import Pet, Booking, Review
+from .forms import ReviewForm
 
 
 # When users come to the site we want to show the home page 
@@ -41,3 +42,24 @@ class ReviewList(generic.ListView):
         data['max_review_score'] = 5
 
         return data 
+
+class NewReview(generic.edit.CreateView):
+    model = Review
+    template_name = "new_review.html"
+    form_class = ReviewForm
+    success_url = '/reviews'
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        # Pass the user so we can only show the correct bookings 
+        # in the dropdowns 
+        # From here: https://stackoverflow.com/questions/60104231/django-3-making-models-fk-dropdown-display-current-users-data-only 
+        data['new_review_form'] = ReviewForm(user=self.request.user)
+
+        return data 
+
+    # Taken from here: https://stackoverflow.com/questions/21652073/django-how-to-set-a-hidden-field-on-a-generic-create-view
+    def form_valid(self, form):
+         user = self.request.user
+         form.instance.owner = user
+         return super(NewReview, self).form_valid(form)
