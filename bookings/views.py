@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import generic
-from .models import Pet, Booking
+from .models import Pet, Booking, Review
 
 
 # When users come to the site we want to show the home page 
@@ -26,3 +26,18 @@ class BookingList(generic.ListView):
     # and not every booking in the database
     def get_queryset(self):
         return Booking.objects.filter(owner = self.request.user).order_by("-start_date")
+
+class ReviewList(generic.ListView):
+    model = Review
+    template_name = "reviews.html"
+
+    # Only show Reviews for the current user
+    # and not every review in the database
+    def get_queryset(self):
+        return Review.objects.filter(owner=self.request.user)
+    
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['max_review_score'] = 5
+
+        return data 

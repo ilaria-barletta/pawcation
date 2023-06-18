@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load mathfilters %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            {% for review in object_list %}
+            <!-- score_remainder is used to show the "blank" review stars -->
+            {% with score_remainder=max_review_score|sub:review.score %}
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{review}}</h5>
+                    <p class="card-text">
+                        {% for i in "x"|rjust:review.score %}
+                            <i class="fa-solid fa-star"></i>
+                        {% endfor %}
+                        <!-- rjust created a list even when score_remainder -->
+                        <!-- was 0, and this added a wrong star -->
+                        <!-- The if stops that from happening -->
+                        {% if score_remainder > 0 %}
+                            {% for i in "x"|rjust:score_remainder %}
+                                <i class="fa-regular fa-star"></i>
+                            {% endfor %}
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+            {% endwith %}
+            {% endfor %}
+            {% if object_list|length == 0 %}
+            <p>You don't have any reviews yet.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{%endblock%}

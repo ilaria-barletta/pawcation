@@ -50,3 +50,6 @@ class Review(models.Model):
         User, on_delete=models.CASCADE, related_name="reviews")
     booking = models.ForeignKey(
         Booking, related_name="booking", on_delete=models.CASCADE, null=True)
+    
+    def __str__(self):
+        return f'Review for booking on {self.booking.start_date.strftime("%x")}'
