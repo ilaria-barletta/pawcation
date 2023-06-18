@@ -25,4 +25,4 @@ class BookingList(generic.ListView):
     # Only show Bookings for the current user 
     # and not every booking in the database
     def get_queryset(self):
-        return Booking.objects.filter(owner = self.request.user)
+        return Booking.objects.filter(owner = self.request.user).order_by("-start_date")
