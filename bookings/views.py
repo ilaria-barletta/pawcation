@@ -45,21 +45,30 @@ class ReviewList(generic.ListView):
 
 class NewReview(generic.edit.CreateView):
     model = Review
-    template_name = "new_review.html"
+    template_name = "create_edit_review.html"
     form_class = ReviewForm
     success_url = '/reviews'
 
-    def get_context_data(self, **kwargs):
-        data = super().get_context_data(**kwargs)
-        # Pass the user so we can only show the correct bookings 
-        # in the dropdowns 
-        # From here: https://stackoverflow.com/questions/60104231/django-3-making-models-fk-dropdown-display-current-users-data-only 
-        data['new_review_form'] = ReviewForm(user=self.request.user)
-
-        return data 
+    # Taken from here: https://stackoverflow.com/questions/45847561/how-do-i-filter-values-in-django-createview-updateview 
+    def get_form_kwargs(self):
+        kwargs = super(NewReview, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
 
     # Taken from here: https://stackoverflow.com/questions/21652073/django-how-to-set-a-hidden-field-on-a-generic-create-view
     def form_valid(self, form):
          user = self.request.user
          form.instance.owner = user
          return super(NewReview, self).form_valid(form)
+
+class UpdateReview(generic.edit.UpdateView):
+    model = Review
+    template_name = "create_edit_review.html"
+    form_class = ReviewForm
+    success_url = '/reviews'
+
+    # Taken from here: https://stackoverflow.com/questions/45847561/how-do-i-filter-values-in-django-createview-updateview 
+    def get_form_kwargs(self):
+        kwargs = super(UpdateReview, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs

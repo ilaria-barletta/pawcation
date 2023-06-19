@@ -26,6 +26,7 @@
                             {% endfor %}
                         {% endif %}
                     </p>
+                    <a href="{% url 'update_review' review.id %}" class="btn btn-primary">Edit</a>
                 </div>
             </div>
             {% endwith %}

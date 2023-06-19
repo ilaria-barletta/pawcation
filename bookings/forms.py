@@ -3,8 +3,9 @@ from django import forms
 
 class ReviewForm(forms.ModelForm):
 
-    # Taken from here: https://stackoverflow.com/questions/60104231/django-3-making-models-fk-dropdown-display-current-users-data-only 
-    def __init__(self, user=None, *args, **kwargs):
+    # Taken from here: https://stackoverflow.com/questions/45847561/how-do-i-filter-values-in-django-createview-updateview
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user')
         super().__init__(*args, **kwargs)
         if user:
             self.fields['booking'].queryset = Booking.objects.filter(owner=user)

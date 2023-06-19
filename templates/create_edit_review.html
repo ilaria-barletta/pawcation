@@ -1,3 +1,5 @@
+<!-- This template is the form for creating and updating reviews -->
+
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 
@@ -7,7 +9,7 @@
     <div class="row">
         <div class="col">
             <form method="post" style="margin-top: 1.3em;">
-                {{ new_review_form | crispy }}
+                {{ form | crispy }}
                 {% csrf_token %}
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
