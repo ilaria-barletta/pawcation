@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views import generic
 from .models import Pet, Booking, Review
-from .forms import ReviewForm
+from .forms import ReviewForm, PetForm
 
 
 # When users come to the site we want to show the home page 
@@ -50,12 +50,15 @@ class NewReview(generic.edit.CreateView):
     success_url = '/reviews'
 
     # Taken from here: https://stackoverflow.com/questions/45847561/how-do-i-filter-values-in-django-createview-updateview 
+    # This allows us to filter the list of bookings for the review to show 
+    # the current users bookings 
     def get_form_kwargs(self):
         kwargs = super(NewReview, self).get_form_kwargs()
         kwargs['user'] = self.request.user
         return kwargs
 
     # Taken from here: https://stackoverflow.com/questions/21652073/django-how-to-set-a-hidden-field-on-a-generic-create-view
+    # This sets the owner on the review model to the current user
     def form_valid(self, form):
          user = self.request.user
          form.instance.owner = user
@@ -78,3 +81,15 @@ class DeleteReview(generic.edit.DeleteView):
     template_name = "delete_review.html"
     success_url = '/reviews'
     context_object_name = 'review'
+
+
+class NewPet(generic.edit.CreateView):
+    model = Pet
+    template_name = "create_edit_pet.html"
+    form_class = PetForm
+    success_url = '/pets'
+
+    def form_valid(self, form):
+        user = self.request.user
+        form.instance.owner = user
+        return super(NewPet, self).form_valid(form)

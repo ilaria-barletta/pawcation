@@ -4,6 +4,7 @@
 
 <div class="container">
     <div class="row">
+        <a class="btn btn-primary" href="{% url 'new_pet' %}" role="button">Register your pet</a>
         <div class="col">
             {% for pet in object_list %}
                 <!-- TODO: move to css -->

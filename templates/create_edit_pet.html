@@ -1,0 +1,22 @@
+<!-- This template is the form for creating and updating pets -->
+
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load cloudinary %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <!-- multipart/form-data makes the cloudinary upload work -->
+            <form method="POST" action="" enctype="multipart/form-data" style="margin-top: 1.3em;">
+                {{ form | crispy }}
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{%endblock%}
