@@ -93,3 +93,10 @@ class NewPet(generic.edit.CreateView):
         user = self.request.user
         form.instance.owner = user
         return super(NewPet, self).form_valid(form)
+
+
+class UpdatePet(generic.edit.UpdateView):
+    model = Pet
+    template_name = "create_edit_pet.html"
+    form_class = PetForm
+    success_url = '/pets'
