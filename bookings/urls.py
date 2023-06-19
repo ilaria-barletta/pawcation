@@ -9,4 +9,5 @@ urlpatterns = [
     path("new-review", views.NewReview.as_view(), name="new_review"),
     # Found here: https://www.pythontutorial.net/django-tutorial/django-updateview/ 
     path("reviews/update/<pk>/", views.UpdateReview.as_view(), name="update_review"),
+    path("reviews/delete/<pk>/", views.DeleteReview.as_view(), name="delete_review"),
 ]

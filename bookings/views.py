@@ -72,3 +72,9 @@ class UpdateReview(generic.edit.UpdateView):
         kwargs = super(UpdateReview, self).get_form_kwargs()
         kwargs['user'] = self.request.user
         return kwargs
+
+class DeleteReview(generic.edit.DeleteView):
+    model = Review
+    template_name = "delete_review.html"
+    success_url = '/reviews'
+    context_object_name = 'review'
