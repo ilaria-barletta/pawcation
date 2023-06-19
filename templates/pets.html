@@ -16,6 +16,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{pet.name}}</h5>
                         <a href="{% url 'update_pet' pet.id %}" class="btn btn-primary">Edit</a>
+                        <a href="{% url 'delete_pet' pet.id %}" class="btn btn-danger">Delete</a>
                     </div>
                 </div>
             {% endfor %}

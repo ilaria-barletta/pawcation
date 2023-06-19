@@ -100,3 +100,10 @@ class UpdatePet(generic.edit.UpdateView):
     template_name = "create_edit_pet.html"
     form_class = PetForm
     success_url = '/pets'
+
+
+class DeletePet(generic.edit.DeleteView):
+    model = Pet
+    template_name = "delete_pet.html"
+    success_url = '/pets'
+    context_object_name = 'pet'
