@@ -138,3 +138,10 @@ class UpdateBooking(generic.edit.UpdateView):
         kwargs = super(UpdateBooking, self).get_form_kwargs()
         kwargs['user'] = self.request.user
         return kwargs
+
+
+class DeleteBooking(generic.edit.DeleteView):
+    model = Booking
+    template_name = "delete_booking.html"
+    success_url = '/bookings'
+    context_object_name = 'booking'

@@ -11,6 +11,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{booking}}</h5>
                     <a href="{% url 'update_booking' booking.id %}" class="btn btn-primary">Edit</a>
+                    <a href="{% url 'delete_booking' booking.id %}" class="btn btn-danger">Delete</a>
                 </div>
             </div>
             {% endfor %}
