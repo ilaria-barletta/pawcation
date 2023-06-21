@@ -126,3 +126,15 @@ class NewBooking(generic.edit.CreateView):
         user = self.request.user
         form.instance.owner = user
         return super(NewBooking, self).form_valid(form)
+
+
+class UpdateBooking(generic.edit.UpdateView):
+    model = Booking
+    template_name = "create_edit_booking.html"
+    form_class = BookingForm
+    success_url = '/bookings'
+
+    def get_form_kwargs(self):
+        kwargs = super(UpdateBooking, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
