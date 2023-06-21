@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views import generic
 from .models import Pet, Booking, Review
-from .forms import ReviewForm, PetForm
+from .forms import ReviewForm, PetForm, BookingForm
 
 
 # When users come to the site we want to show the home page 
@@ -107,3 +107,22 @@ class DeletePet(generic.edit.DeleteView):
     template_name = "delete_pet.html"
     success_url = '/pets'
     context_object_name = 'pet'
+
+
+class NewBooking(generic.edit.CreateView):
+    model = Booking
+    template_name = "create_edit_booking.html"
+    form_class = BookingForm
+    success_url = '/bookings'
+
+    # This allows us to filter the list of pet for the booking to show
+    # the current users pets
+    def get_form_kwargs(self):
+        kwargs = super(NewBooking, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def form_valid(self, form):
+        user = self.request.user
+        form.instance.owner = user
+        return super(NewBooking, self).form_valid(form)
