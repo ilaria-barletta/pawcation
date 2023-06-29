@@ -1,5 +1,11 @@
+import datetime
 from .models import Review, Booking, Pet
 from django import forms 
+from django.db.models import Q
+
+
+MAX_BOOKINGS_PER_DAY = 2
+
 
 class ReviewForm(forms.ModelForm):
 
@@ -38,6 +44,19 @@ class BookingForm(forms.ModelForm):
         if (end_date < start_date):
             raise forms.ValidationError(
                         "The booking end date must be after the start date"
+                    )
+        
+        # Get list of dates inclusive of start_date -> end_date
+        dates = [start_date+datetime.timedelta(days=x) for x in range((end_date-start_date).days)]
+        dates.append(end_date)
+
+        for date in dates:
+            # Get all the bookings that start or end on this date
+            bookings_on_date = Booking.objects.filter(Q(start_date=date) | Q(end_date=date))
+            # If we have too many then error 
+            if bookings_on_date.count() >= MAX_BOOKINGS_PER_DAY:
+                raise forms.ValidationError(
+                        "We don't have enough space for those dates. Please choose different dates"
                     )
 
     class Meta:
