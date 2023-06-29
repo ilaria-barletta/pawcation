@@ -29,6 +29,17 @@ class BookingForm(forms.ModelForm):
         if user:
             self.fields['pet'].queryset = Pet.objects.filter(owner=user)
 
+    # From here: https://docs.djangoproject.com/en/4.2/ref/forms/validation/#cleaning-and-validating-fields-that-depend-on-each-other
+    def clean(self):
+        cleaned_data = super().clean()
+        start_date = cleaned_data.get("start_date")
+        end_date = cleaned_data.get("end_date")
+
+        if (end_date < start_date):
+            raise forms.ValidationError(
+                        "The booking end date must be after the start date"
+                    )
+
     class Meta:
         model = Booking
         fields = ('start_date', 'end_date', 'pet',)

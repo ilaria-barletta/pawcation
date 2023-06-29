@@ -32,7 +32,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8000-ilaria-barletta-pawcatio-qyxg5w6jxi.us2.codeanyapp.com', 'pawcation.herokuapp.com']
+ALLOWED_HOSTS = ['8000-ilaria-barletta-pawcatio-qyxg5w6jxi.us2.codeanyapp.com', 'pawcation.herokuapp.com', 'localhost']
 
 
 # Application definition
