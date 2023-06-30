@@ -5,6 +5,7 @@ from django.db.models import Q
 
 
 MAX_BOOKINGS_PER_DAY = 2
+MAX_STAY_DURATION_DAYS = 30
 
 
 class ReviewForm(forms.ModelForm):
@@ -49,6 +50,11 @@ class BookingForm(forms.ModelForm):
         # Get list of dates inclusive of start_date -> end_date
         dates = [start_date+datetime.timedelta(days=x) for x in range((end_date-start_date).days)]
         dates.append(end_date)
+
+        if (len(dates) > MAX_STAY_DURATION_DAYS):
+            raise forms.ValidationError(
+                        "You have chosen to book for too many days. Please choose at most 30 days"
+                    )
 
         for date in dates:
             # Get all the bookings that start or end on this date
