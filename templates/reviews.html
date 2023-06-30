@@ -33,7 +33,7 @@
             {% endwith %}
             {% endfor %}
             {% if object_list|length == 0 %}
-            <p>You don't have any reviews yet.</p>
+            <p>{{empty_message}}</p>
             {% endif %}
         </div>
     </div>
