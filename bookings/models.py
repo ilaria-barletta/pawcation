@@ -45,7 +45,11 @@ class Booking(models.Model):
         ordering = ["-start_date"]
 
     def __str__(self):
-        return f'Booking for {self.pet.name} from {self.start_date.strftime("%x")} to {self.end_date.strftime("%x")}'
+        # This will tell users if it's the first stay or a full booking 
+        booking_type_name = BOOKING_TYPE[0][1]
+        if self.booking_type == BOOKING_TYPE[1][0]:
+            booking_type_name = BOOKING_TYPE[1][1]
+        return f'{booking_type_name} for {self.pet.name} from {self.start_date.strftime("%x")} to {self.end_date.strftime("%x")}'
 
 
 class Review(models.Model):

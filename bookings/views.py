@@ -125,6 +125,17 @@ class NewBooking(generic.edit.CreateView):
     def form_valid(self, form):
         user = self.request.user
         form.instance.owner = user
+
+        # Check if this pet has stayed before and make a pre-visit 
+        # if they haven't and a full booking if they have 
+        pet = form.instance.pet
+        bookings_for_pet = Booking.objects.filter(pet=pet)
+        booking_type = 0
+        if len(bookings_for_pet) > 0:
+            booking_type = 1
+
+        form.instance.booking_type = booking_type
+
         return super(NewBooking, self).form_valid(form)
 
 
