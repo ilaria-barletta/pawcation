@@ -1,10 +1,15 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
 
 <div class="container-fluid">
     <div class="row">
-        This is the home page!
+        <img id="pawcation-hotel" src="{% static 'assets/images/pawcation-hotel.jpeg' %}" alt="pawcation hotel cartoonish image" />
+        <h1>Welcome to pawcation, a vacation for your paws.</h1>
+        <p>We do love our furry friends but from time to time we need a safe place for them to be</p>
+        <p>when we're not home. Pawcation offers just that, a joyful, safe and entertaining experience until you get back.</p>
+        <p>They'll be in good hands!</p>
+        <p>Trust us and check out our customer's reviews.</p> 
     </div>
 </div>
 
