@@ -26,8 +26,11 @@
                             {% endfor %}
                         {% endif %}
                     </p>
-                    <a href="{% url 'update_review' review.id %}" class="btn btn-primary">Edit</a>
-                    <a href="{% url 'delete_review' review.id %}" class="btn btn-danger">Delete</a>
+                    {% if can_modify_reviews %}
+                        <a href="{% url 'update_review' review.id %}" class="btn btn-primary">Edit</a>
+                        <a href="{% url 'delete_review' review.id %}" class="btn btn-danger">Delete</a>
+                    {% endif %}
+
                 </div>
             </div>
             {% endwith %}

@@ -41,6 +41,7 @@ class ReviewList(generic.ListView):
         data = super().get_context_data(**kwargs)
         data['max_review_score'] = 5
         data['empty_message'] = "You don't have any reviews yet"
+        data['can_modify_reviews'] = True
 
         return data 
 
@@ -57,7 +58,7 @@ class OtherUsersReviewList(generic.ListView):
         data = super().get_context_data(**kwargs)
         data['max_review_score'] = 5
         data['empty_message'] = "There are no reviews yet."
-
+        data['can_modify_reviews'] = False
 
         return data 
 
