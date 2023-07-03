@@ -64,5 +64,5 @@ class Review(models.Model):
     
     def __str__(self):
         if self.booking:
-            return f'Review for booking on {self.booking.start_date.strftime("%x")}'
+            return f'Review for: {self.booking} by {self.owner.username}'
         return 'Review with no booking' 
