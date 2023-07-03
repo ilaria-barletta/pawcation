@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.views import generic
 from django.db.models import Q
 from .models import Pet, Booking, Review
@@ -94,12 +95,25 @@ class UpdateReview(generic.edit.UpdateView):
         kwargs = super(UpdateReview, self).get_form_kwargs()
         kwargs['user'] = self.request.user
         return kwargs
+    
+    # Taken from here: https://stackoverflow.com/questions/25324948/django-generic-updateview-how-to-check-credential 
+    def get_object(self, *args, **kwargs):
+        obj = super(UpdateReview, self).get_object(*args, **kwargs)
+        if not obj.owner == self.request.user:
+            raise Http404
+        return obj
 
 class DeleteReview(generic.edit.DeleteView):
     model = Review
     template_name = "delete_review.html"
     success_url = '/reviews'
     context_object_name = 'review'
+
+    def get_object(self, *args, **kwargs):
+        obj = super(DeleteReview, self).get_object(*args, **kwargs)
+        if not obj.owner == self.request.user:
+            raise Http404
+        return obj
 
 
 class NewPet(generic.edit.CreateView):
@@ -120,12 +134,24 @@ class UpdatePet(generic.edit.UpdateView):
     form_class = PetForm
     success_url = '/pets'
 
+    def get_object(self, *args, **kwargs):
+        obj = super(UpdatePet, self).get_object(*args, **kwargs)
+        if not obj.owner == self.request.user:
+            raise Http404
+        return obj
+
 
 class DeletePet(generic.edit.DeleteView):
     model = Pet
     template_name = "delete_pet.html"
     success_url = '/pets'
     context_object_name = 'pet'
+
+    def get_object(self, *args, **kwargs):
+        obj = super(DeletePet, self).get_object(*args, **kwargs)
+        if not obj.owner == self.request.user:
+            raise Http404
+        return obj
 
 
 class NewBooking(generic.edit.CreateView):
@@ -168,6 +194,12 @@ class UpdateBooking(generic.edit.UpdateView):
         kwargs = super(UpdateBooking, self).get_form_kwargs()
         kwargs['user'] = self.request.user
         return kwargs
+    
+    def get_object(self, *args, **kwargs):
+        obj = super(UpdateBooking, self).get_object(*args, **kwargs)
+        if not obj.owner == self.request.user:
+            raise Http404
+        return obj
 
 
 class DeleteBooking(generic.edit.DeleteView):
@@ -175,3 +207,9 @@ class DeleteBooking(generic.edit.DeleteView):
     template_name = "delete_booking.html"
     success_url = '/bookings'
     context_object_name = 'booking'
+
+    def get_object(self, *args, **kwargs):
+        obj = super(DeleteBooking, self).get_object(*args, **kwargs)
+        if not obj.owner == self.request.user:
+            raise Http404
+        return obj
