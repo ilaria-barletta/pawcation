@@ -1,3 +1,5 @@
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
 from django.http import Http404
 from django.views import generic
 from django.db.models import Q
@@ -63,11 +65,12 @@ class OtherUsersReviewList(generic.ListView):
 
         return data 
 
-class NewReview(generic.edit.CreateView):
+class NewReview(SuccessMessageMixin, generic.edit.CreateView):
     model = Review
     template_name = "create_edit_review.html"
     form_class = ReviewForm
     success_url = '/reviews'
+    success_message = 'Your review has been added successfully.'
 
     # Taken from here: https://stackoverflow.com/questions/45847561/how-do-i-filter-values-in-django-createview-updateview 
     # This allows us to filter the list of bookings for the review to show 
@@ -84,11 +87,12 @@ class NewReview(generic.edit.CreateView):
          form.instance.owner = user
          return super(NewReview, self).form_valid(form)
 
-class UpdateReview(generic.edit.UpdateView):
+class UpdateReview(SuccessMessageMixin, generic.edit.UpdateView):
     model = Review
     template_name = "create_edit_review.html"
     form_class = ReviewForm
     success_url = '/reviews'
+    success_message = "Your review has been updated successfully"
 
     # Taken from here: https://stackoverflow.com/questions/45847561/how-do-i-filter-values-in-django-createview-updateview 
     def get_form_kwargs(self):
@@ -103,24 +107,33 @@ class UpdateReview(generic.edit.UpdateView):
             raise Http404
         return obj
 
-class DeleteReview(generic.edit.DeleteView):
+class DeleteReview(SuccessMessageMixin, generic.edit.DeleteView):
     model = Review
     template_name = "delete_review.html"
     success_url = '/reviews'
     context_object_name = 'review'
+    success_message = "Your review has been deleted successfully"
 
     def get_object(self, *args, **kwargs):
         obj = super(DeleteReview, self).get_object(*args, **kwargs)
         if not obj.owner == self.request.user:
             raise Http404
         return obj
+    
+    # Taken from here: https://stackoverflow.com/questions/24822509/success-message-in-deleteview-not-shown
+    # DeleteView doesn't work the same way as Create and Update and we need to add this code 
+    # so the success message works 
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super(DeleteReview, self).delete(request, *args, **kwargs)
 
 
-class NewPet(generic.edit.CreateView):
+class NewPet(SuccessMessageMixin, generic.edit.CreateView):
     model = Pet
     template_name = "create_edit_pet.html"
     form_class = PetForm
     success_url = '/pets'
+    success_message = "Your pet %(name)s has been added successfully."
 
     def form_valid(self, form):
         user = self.request.user
@@ -128,11 +141,12 @@ class NewPet(generic.edit.CreateView):
         return super(NewPet, self).form_valid(form)
 
 
-class UpdatePet(generic.edit.UpdateView):
+class UpdatePet(SuccessMessageMixin, generic.edit.UpdateView):
     model = Pet
     template_name = "create_edit_pet.html"
     form_class = PetForm
     success_url = '/pets'
+    success_message = "Your pet %(name)s has been updated successfully."
 
     def get_object(self, *args, **kwargs):
         obj = super(UpdatePet, self).get_object(*args, **kwargs)
@@ -141,24 +155,30 @@ class UpdatePet(generic.edit.UpdateView):
         return obj
 
 
-class DeletePet(generic.edit.DeleteView):
+class DeletePet(SuccessMessageMixin, generic.edit.DeleteView):
     model = Pet
     template_name = "delete_pet.html"
     success_url = '/pets'
     context_object_name = 'pet'
+    success_message = "Your pet has been deleted successfully."
 
     def get_object(self, *args, **kwargs):
         obj = super(DeletePet, self).get_object(*args, **kwargs)
         if not obj.owner == self.request.user:
             raise Http404
         return obj
+    
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super(DeletePet, self).delete(request, *args, **kwargs)
 
 
-class NewBooking(generic.edit.CreateView):
+class NewBooking(SuccessMessageMixin, generic.edit.CreateView):
     model = Booking
     template_name = "create_edit_booking.html"
     form_class = BookingForm
     success_url = '/bookings'
+    success_message = "Your booking has been added successfully."
 
     # This allows us to filter the list of pet for the booking to show
     # the current users pets
@@ -184,11 +204,12 @@ class NewBooking(generic.edit.CreateView):
         return super(NewBooking, self).form_valid(form)
 
 
-class UpdateBooking(generic.edit.UpdateView):
+class UpdateBooking(SuccessMessageMixin, generic.edit.UpdateView):
     model = Booking
     template_name = "create_edit_booking.html"
     form_class = BookingForm
     success_url = '/bookings'
+    success_message = "Your booking has been updated successfully."
 
     def get_form_kwargs(self):
         kwargs = super(UpdateBooking, self).get_form_kwargs()
@@ -202,14 +223,19 @@ class UpdateBooking(generic.edit.UpdateView):
         return obj
 
 
-class DeleteBooking(generic.edit.DeleteView):
+class DeleteBooking(SuccessMessageMixin, generic.edit.DeleteView):
     model = Booking
     template_name = "delete_booking.html"
     success_url = '/bookings'
     context_object_name = 'booking'
+    success_message = "Your booking has been deleted successfully."
 
     def get_object(self, *args, **kwargs):
         obj = super(DeleteBooking, self).get_object(*args, **kwargs)
         if not obj.owner == self.request.user:
             raise Http404
         return obj
+    
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super(DeleteBooking, self).delete(request, *args, **kwargs)
