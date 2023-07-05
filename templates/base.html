@@ -26,7 +26,7 @@
 
     <!-- Navigation -->
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light" id="nav">
         <div class="container-fluid">
             
             {% if user.is_authenticated %}
@@ -56,16 +56,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
                     </li>
-                    {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'account_signup' %}">Register</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'account_login' %}">Login</a>
-                    </li>
                     {% endif %}
                 </ul>
             </div>
@@ -73,6 +63,7 @@
     </nav>
 
     <!-- Taken from Code Institute -->
+    <!-- This shows the messages when a user logs in, or creates bookings, reviews, or pets -->
     <div class="container">
         <div class="row">
             <div class="col-md-8 offset-md-2">
@@ -93,7 +84,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="footer mt-auto py-3 bg-light">
+    <footer class="footer mt-auto py-3" id="footer">
         <p class="m-0 text-center text-dark">Pawcation <i class="fa-solid fa-paw"></i></p>
     </footer>
 

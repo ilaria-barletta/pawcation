@@ -5,7 +5,9 @@
 
 <div class="container">
     <div class="row">
-        <a class="btn btn-primary" href="{% url 'new_review' %}" role="button">New Review</a>
+        {% if can_create_reviews %}
+            <a class="btn btn-primary" href="{% url 'new_review' %}" role="button">New Review</a>
+        {% endif %}
         <div class="col">
             {% for review in object_list %}
             <!-- score_remainder is used to show the "blank" review stars -->

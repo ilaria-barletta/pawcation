@@ -2,15 +2,29 @@
 {% load static %}
 {% block content %}
 
-<div class="container-fluid">
-    <div class="row">
-        <img id="pawcation-hotel" src="{% static 'assets/images/pawcation-hotel.jpeg' %}" alt="pawcation hotel cartoonish image" />
-        <h1>Welcome to pawcation, a vacation for your paws.</h1>
-        <p>We do love our furry friends but from time to time we need a safe place for them to be</p>
-        <p>when we're not home. Pawcation offers just that, a joyful, safe and entertaining experience until you get back.</p>
-        <p>They'll be in good hands!</p>
-        <p>Trust us and check out our customer's reviews.</p> 
+
+<div class="card-body">
+    <h1 class="card-title text-center">Pawcation, a vacation for your paws.</h1>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <img class="img-fluid w-25" id="pawcation-hotel" src="{% static 'assets/images/pawcation-hotel.jpeg' %}" alt="pawcation hotel cartoonish image" />
+            </div>
+        </div>    
+        <div class="text-center lh-base">
+            <p>Hey you, proud dog owner, welcome to Pawcation!</p>
+            <p>Here we all love our furry friends but from time to time we need a safe place for them to be</p>
+            <p>when we're not home. Pawcation offers just that, a joyful, safe and entertaining experience until you get back.</p>
+            <p>They'll be in good hands!</p>
+            <p>Trust us and check out our customer's <a href="{% url 'other_users_reviews' %}">reviews.</a></p>
+        </div>
+        <div class="d-grid gap-3 col-1 mx-auto">
+            <a href="{% url 'account_signup' %}" class="btn btn-outline-dark">Register </a>
+            <a href="{% url 'account_login' %}" class="btn btn-outline-dark">Log in </a>
+        </div>
+        
     </div>
+
 </div>
 
 {%endblock%}

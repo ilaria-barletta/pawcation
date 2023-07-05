@@ -45,6 +45,7 @@ class ReviewList(generic.ListView):
         data['max_review_score'] = 5
         data['empty_message'] = "You don't have any reviews yet"
         data['can_modify_reviews'] = True
+        data['can_create_reviews'] = True
 
         return data 
 
@@ -52,16 +53,20 @@ class OtherUsersReviewList(generic.ListView):
     model = Review
     template_name = "reviews.html"
 
-    # Only show Reviews for the other users
-    # and not the current user
+    # If the user is logged in we can see other user reviews 
+    # If the user is not logged in they can see all reviews 
     def get_queryset(self):
-        return Review.objects.filter(~Q(owner=self.request.user))
+        if not self.request.user.is_anonymous:
+            return Review.objects.filter(~Q(owner=self.request.user))
+        return Review.objects.all()
     
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
         data['max_review_score'] = 5
         data['empty_message'] = "There are no reviews yet."
         data['can_modify_reviews'] = False
+        # Only let logged in users leave reviews 
+        data['can_create_reviews'] = not self.request.user.is_anonymous
 
         return data 
 
