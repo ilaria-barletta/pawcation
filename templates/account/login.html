@@ -1,25 +1,25 @@
-<!-- This template is to style the django all auth signup form -->
-<!-- Found here: https://dev.to/tylerlwsmith/styling-django-allauth-by-overriding-its-templates-3c31 -->
+<!-- This template is to style the django all auth sign in page-->
+
+
 {% extends "base.html" %}
 
 {% load crispy_forms_tags %}
 
 {% block content %}
 
-
 <div class="container">
     <div class="row">
         <div class="col">
-            <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+            <form class="login" method="POST" action="{% url 'account_login' %}">
                 {% csrf_token %}
-                <h2>Register</h2>
+                <h2>Log In</h1>
                 {{ form | crispy }}
-                
+
                 {% if redirect_field_value %}
                     <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                 {% endif %}
 
-                <button type="submit" class="btn btn-primary">Register</button>
+                    <button type="submit" class="btn btn-primary">Log In</button>
             </form>
         </div>
     </div>
