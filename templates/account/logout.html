@@ -1,0 +1,30 @@
+<!--This template is to style the django all auth sign out form-->
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <form method="post" action="{% url 'account_logout' %}">
+            {% csrf_token %}
+            <h2>Sign Out</h2>
+            <p>Are you sure you want to sign out?</p>
+            
+            {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+            {% endif %}
+            
+            <button type="submit" class="btn btn-primary">Sign Out</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
