@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
 
 <div class="container">
@@ -9,9 +9,10 @@
             {% for pet in object_list %}
                 <!-- TODO: move to css -->
                 <div class="card" style="width: 10rem"> 
-                    <!-- TODO: Show a generic image here in the future -->
                     {% if "placeholder" not in pet.picture.url %}
-                    <img src="{{pet.picture.url}}" class="card-img-top" alt="Pet profile picture">
+                        <img src="{{pet.picture.url}}" class="card-img-top" alt="Pet profile picture">
+                    {% else %}
+                        <img src="{% static 'assets/images/placeholder.jpg' %}" class="card-img-top" alt="Placeholder pet profile picture" />
                     {% endif %}
                     <div class="card-body">
                         <h5 class="card-title">{{pet.name}}</h5>
