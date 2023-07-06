@@ -44,6 +44,10 @@ class Booking(models.Model):
     class Meta:
         ordering = ["-start_date"]
 
+    # A booking has ended if the end date is in the past 
+    def has_ended(self):
+        return self.end_date.date() < date.today()
+
     def __str__(self):
         # This will tell users if it's the first stay or a full booking 
         booking_type_name = BOOKING_TYPE[0][1]

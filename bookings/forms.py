@@ -53,7 +53,8 @@ class BookingForm(forms.ModelForm):
         dates = [start_date+datetime.timedelta(days=x) for x in range((end_date-start_date).days)]
         dates.append(end_date)
 
-        bookings_for_pet = Booking.objects.filter(pet=pet)
+        bookings_for_pet = list(Booking.objects.filter(pet=pet))
+        bookings_for_pet = list(filter(lambda booking: booking.has_ended(), bookings_for_pet))
         is_pre_visit = len(bookings_for_pet) < 1
 
         # This will validate if this is the first visit for this pet 

@@ -199,7 +199,8 @@ class NewBooking(SuccessMessageMixin, generic.edit.CreateView):
         # Check if this pet has stayed before and make a pre-visit 
         # if they haven't and a full booking if they have 
         pet = form.instance.pet
-        bookings_for_pet = Booking.objects.filter(pet=pet)
+        bookings_for_pet = list(Booking.objects.filter(pet=pet))
+        bookings_for_pet = list(filter(lambda booking: booking.has_ended(), bookings_for_pet))
         booking_type = 0
         if len(bookings_for_pet) > 0:
             booking_type = 1
