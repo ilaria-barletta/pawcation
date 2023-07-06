@@ -5,10 +5,10 @@
 <div class="container">
     <div class="row">
         <a class="btn btn-primary" href="{% url 'new_pet' %}" role="button">Register your pet</a>
+        {% for pet in object_list %}
         <div class="col">
-            {% for pet in object_list %}
-                <!-- TODO: move to css -->
-                <div class="card" style="width: 10rem"> 
+            
+                <div class="card"> 
                     {% if "placeholder" not in pet.picture.url %}
                         <img src="{{pet.picture.url}}" class="card-img-top" alt="Pet profile picture">
                     {% else %}
@@ -20,11 +20,11 @@
                         <a href="{% url 'delete_pet' pet.id %}" class="btn btn-danger">Delete</a>
                     </div>
                 </div>
-            {% endfor %}
-            {% if object_list|length == 0 %}
-                <p>You don't have any pets yet.</p>
-            {% endif %}
         </div>        
+        {% endfor %}
+        {% if object_list|length == 0 %}
+            <p>You don't have any pets yet.</p>
+        {% endif %}
     </div>
 </div>
 
