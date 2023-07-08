@@ -1,39 +1,66 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Pawcation
 
-Welcome,
+Pawcation is a website addressed to dog owners offering hotel services for dogs. Having a dog is wonderful but we all know how hard it can be, at times,  to find a safe place for our furry friends when we are not around.Enters Pawcation, a small business that offer safe stays so that our dogs are treated well until we get back. 
 
-This is the Code Institute student template for Codeanywhere. We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions.
+The live version of my project can be found here: 
+___
+## UX Design
 
-You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Codeanywhere and the extensions we use. Some of this information has been updated since the video content was created. The last update to this file was: **March 3rd, 2023**
 
-## Codeanywhere Reminders
+___
+## Features 
+__Homepage__: ![Welcome page and request to log in or register](add pic)
 
-To run a frontend (HTML, CSS, Javascript only) application in Codeanywhere, in the terminal, type:
+This is the main page that the user sees before registering or logging in. 
+The content is centered and the style is clean and simple. 
+There is a navigation bar and a footer.
+The navigation bar at this stage contains only the name of the website (it works as a link to the homepage as well if the buttons present in the page are clicked and the user wants to go back to the main screen).
+The navigation bar will change and provide links to additional pages only after the user has registered or logged in to their account.
+A quick but clear in the scope message to the user informs them of what pawcation is. 
+The message contains a link that if clicked will show reviews left by other customers.
+There are then 2 buttons that let the user register if they are new or log in if they are known users. 
 
-`python3 -m http.server`
+__Register__: ![Registration form] (add pic)
 
-A button should appear to click: _Open Preview_ or _Open Browser_.
+This is the first option the user has and can click on in order to provide their details to access the service. 
+When clicked the user will be taken to a form page where some details will be requested. 
+In particular they will be asked to provide username and password. An email can be also provided but that's optional. 
+The password needs to be selected once and then typed it again for confirmation. 
 
-To run a frontend (HTML, CSS, Javascript only) application in Codeanywhere with no-cache, you can use this alias for `python3 -m http.server`.
+__Successfully registered__: ![message showing registration successfull, user is in the system] (add pic)
+When the process is complete and the user selects register they are shown a screen where options are listed in the nav bar. 
+A pop up message saying "succesfully signed in" is showed to them  
 
-`http_server`
+__Log in__: ![log in form] (add pic)
 
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
+Alternatively the user that already has an accound can just log in into it selecting the relevant button. 
+In such case they will be asked to type in their username and password and both fields are mandatory. 
 
-A button should appear to click: _Open Preview_ or _Open Browser_.
+__Succesfully logged in__: ![message showing registration successfull, user is in the system] (add pic)
 
-In Codeanywhere you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
 
-To log into the Heroku toolbelt CLI:
 
-1. Log in to your Heroku account and go to _Account Settings_ in the menu under your avatar.
-2. Scroll down to the _API Key_ and click _Reveal_
-3. Copy the key
-4. In Codeanywhere, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
+___
+## Technologies
 
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you so do not share it. If you accidentally make it public then you can create a new one with _Regenerate API Key_.
+___
+## Testing 
 
----
+### Manual testing 
+responsivness testing
+browser compatibility testing
+bugs (resolved and unresolved)
+lighthouse testing
+code validation testing 
+user stories testing
+features testing
 
-Happy coding!
+
+
+### Automated testing
+
+___
+## Deployement, Forking, Cloning
+
+___
+## References
