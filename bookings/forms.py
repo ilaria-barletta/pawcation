@@ -16,7 +16,8 @@ class ReviewForm(forms.ModelForm):
         user = kwargs.pop('user')
         super().__init__(*args, **kwargs)
         if user:
-            self.fields['booking'].queryset = Booking.objects.filter(owner=user)
+            # Only show bookings that have ended so we can't review future bookings 
+            self.fields['booking'].queryset = Booking.objects.filter(Q(owner=user) & Q(end_date__lte=datetime.datetime.now()))
 
     class Meta:
         model = Review
