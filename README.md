@@ -6,6 +6,13 @@ The live version of my project can be found here:
 ___
 ## UX Design
 
+### Wireframes 
+Wireframes for the project were created using Figma and can be viewed on Figma [here](https://www.figma.com/file/G1KsEzPmiHHn6TrtWUEKh2/Pawcation-Wireframes?type=design&node-id=4%3A376&mode=design&t=t87crDcdStwRB99v-1)
+
+![Wireframes 1](readme-images/wireframes-1.png)
+![Wireframes 2](readme-images/wireframes-2.png)
+![Wireframes 3](readme-images/wireframes-3.png)
+
 
 ___
 ## Features 
