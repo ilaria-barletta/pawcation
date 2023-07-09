@@ -13,6 +13,11 @@ Wireframes for the project were created using Figma and can be viewed on Figma [
 ![Wireframes 2](readme-images/wireframes-2.png)
 ![Wireframes 3](readme-images/wireframes-3.png)
 
+## Database Design 
+I designed the Database using LucidChard. A link to the document is [here](https://lucid.app/lucidchart/2d227d87-755c-4bae-a0cb-cd0d41d74134/edit?viewport_loc=-720%2C-515%2C1875%2C903%2C0_0&invitationId=inv_8b495c89-08df-4f9f-bb0c-868687f2bdb8)
+
+![Database Diagram](readme-images/database.png)
+
 
 ___
 ## Features 
