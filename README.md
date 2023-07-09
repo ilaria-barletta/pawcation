@@ -78,8 +78,25 @@ features testing
 
 ### Automated testing
 
-___
-## Deployement, Forking, Cloning
+## Deployment, Forking and Cloning 
+The project has been deployed using Heroku. Here are the step to follow for the deployement:
+
+1. Access your Heroku account and click on "create a new app", name the app and select the region before hitting the create app button.   
+2. Navigate to the settings tab and create config vars for cloudinary, the database, and the secret key
+3. Navigate to the deploy section and select Github as deployment method. After confirming that we want to connect to Github we can then search for the Github repository name. Once we find it we can click on connect. 
+5. Scroll down and select enable automatic deploys
+
+The live link to my project is here: https://pawcation.herokuapp.com/
+
+
+
+### Forking & Cloning
+To fork this repository click on the "Fork" button in the top right of the repository in Github. 
+
+To clone this repository:
+1. Click the "Code" button in the repository. 
+2. Copy the clone link.
+3. Use git to clone the copied link: `git clone LINK`. 
 
 ___
 ## References
