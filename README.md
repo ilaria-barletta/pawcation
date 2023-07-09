@@ -62,11 +62,6 @@ In such case they will be asked to type in their username and password and both 
 
 __Succesfully logged in__: ![message showing registration successfull, user is in the system] (add pic)
 
-
-
-___
-## Technologies
-
 ___
 ## Testing 
 
