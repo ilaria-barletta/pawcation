@@ -21,6 +21,16 @@ I designed the Database using LucidChard. A link to the document is [here](https
 ## Agile 
 A link to the Github project and stories can be found [here](https://github.com/users/ilaria-barletta/projects/2/views/1)
 
+## Technologies Used
+* Django 
+* HTML5 
+* CSS 
+* Bootstrap 5 
+* Python 
+* ElephantSQL 
+* Cloudinary 
+* FontAwesome 
+
 ___
 ## Features 
 __Homepage__: ![Welcome page and request to log in or register](add pic)
