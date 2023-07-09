@@ -18,6 +18,8 @@ I designed the Database using LucidChard. A link to the document is [here](https
 
 ![Database Diagram](readme-images/database.png)
 
+## Agile 
+A link to the Github project and stories can be found [here](https://github.com/users/ilaria-barletta/projects/2/views/1)
 
 ___
 ## Features 
