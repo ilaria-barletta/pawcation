@@ -45,6 +45,7 @@ class BookingForm(forms.ModelForm):
         end_date = cleaned_data.get("end_date")
         pet = cleaned_data.get("pet")
 
+        # Validate start date and end date 
         if (end_date < start_date):
             raise forms.ValidationError(
                         "The booking end date must be after the start date"
@@ -55,8 +56,13 @@ class BookingForm(forms.ModelForm):
         dates.append(end_date)
 
         bookings_for_pet = list(Booking.objects.filter(pet=pet))
-        bookings_for_pet = list(filter(lambda booking: booking.has_ended(), bookings_for_pet))
-        is_pre_visit = len(bookings_for_pet) < 1
+        bookings_completed_for_pet = list(filter(lambda booking: booking.has_ended(), bookings_for_pet))
+        is_pre_visit = len(bookings_completed_for_pet) < 1
+        future_pre_visits = list(filter(lambda booking: not booking.has_ended() and booking.booking_type == 0, bookings_for_pet))
+        has_already_booked_pre_visit = len(future_pre_visits) > 0
+
+        if (is_pre_visit and has_already_booked_pre_visit):
+            raise forms.ValidationError("You have already booked a pre-visit for this pet, and cannot book another. If you would like to change the booking, please visit the bookings page and edit your existing pre-visit.")
 
         # This will validate if this is the first visit for this pet 
         # and change the maximum number of days
