@@ -46,6 +46,7 @@ class ReviewList(generic.ListView):
         data['empty_message'] = "You don't have any reviews yet"
         data['can_modify_reviews'] = True
         data['can_create_reviews'] = True
+        data['page_title'] = "My Reviews"
 
         return data 
 
@@ -67,6 +68,7 @@ class OtherUsersReviewList(generic.ListView):
         data['can_modify_reviews'] = False
         # Only let logged in users leave reviews 
         data['can_create_reviews'] = not self.request.user.is_anonymous
+        data['page_title'] = "All Reviews" if self.request.user.is_anonymous else "Other Users Reviews"
 
         return data 
 

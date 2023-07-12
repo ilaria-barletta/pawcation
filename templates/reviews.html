@@ -5,14 +5,17 @@
 
 <div class="container">
     <div class="row">
-        {% if can_create_reviews %}
-            <a class="btn btn-primary" href="{% url 'new_review' %}" role="button">New Review</a>
-        {% endif %}
         <div class="col">
+            <div  class="mb-2 d-flex justify-content-between align-items-center">
+                <h2>{{page_title}}</h2>
+                {% if can_create_reviews %}
+                    <a class="btn btn-primary" href="{% url 'new_review' %}" role="button">New Review</a>
+                {% endif %}
+            </div>
             {% for review in object_list %}
             <!-- score_remainder is used to show the "blank" review stars -->
             {% with score_remainder=max_review_score|sub:review.score %}
-            <div class="card">
+            <div class="card mb-2">
                 <div class="card-body">
                     <h5 class="card-title">{{review}}</h5>
                     <p class="card-text">
