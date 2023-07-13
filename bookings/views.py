@@ -93,6 +93,12 @@ class NewReview(SuccessMessageMixin, generic.edit.CreateView):
          user = self.request.user
          form.instance.owner = user
          return super(NewReview, self).form_valid(form)
+    
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['page_title'] = "New Review"
+
+        return data 
 
 class UpdateReview(SuccessMessageMixin, generic.edit.UpdateView):
     model = Review
@@ -113,6 +119,12 @@ class UpdateReview(SuccessMessageMixin, generic.edit.UpdateView):
         if not obj.owner == self.request.user:
             raise Http404
         return obj
+    
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['page_title'] = "Update Review"
+
+        return data 
 
 class DeleteReview(SuccessMessageMixin, generic.edit.DeleteView):
     model = Review
@@ -146,6 +158,12 @@ class NewPet(SuccessMessageMixin, generic.edit.CreateView):
         user = self.request.user
         form.instance.owner = user
         return super(NewPet, self).form_valid(form)
+    
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['page_title'] = "Register Your Pet"
+
+        return data 
 
 
 class UpdatePet(SuccessMessageMixin, generic.edit.UpdateView):
@@ -160,6 +178,12 @@ class UpdatePet(SuccessMessageMixin, generic.edit.UpdateView):
         if not obj.owner == self.request.user:
             raise Http404
         return obj
+    
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['page_title'] = "Update Your Pet"
+
+        return data 
 
 
 class DeletePet(SuccessMessageMixin, generic.edit.DeleteView):
@@ -193,6 +217,13 @@ class NewBooking(SuccessMessageMixin, generic.edit.CreateView):
         kwargs = super(NewBooking, self).get_form_kwargs()
         kwargs['user'] = self.request.user
         return kwargs
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        # Change the title in the same template for new booking vs edit booking
+        data['page_title'] = "New Booking"
+
+        return data 
 
     def form_valid(self, form):
         user = self.request.user
@@ -229,6 +260,12 @@ class UpdateBooking(SuccessMessageMixin, generic.edit.UpdateView):
         if not obj.owner == self.request.user:
             raise Http404
         return obj
+    
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['page_title'] = "Update Booking"
+
+        return data 
 
 
 class DeleteBooking(SuccessMessageMixin, generic.edit.DeleteView):

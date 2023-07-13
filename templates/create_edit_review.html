@@ -8,10 +8,14 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <form method="post" style="margin-top: 1.3em;">
+            <h2 class="mb-2">{{page_title}}</h2>
+            <form method="post" class="d-flex flex-column gap-3">
                 {{ form | crispy }}
                 {% csrf_token %}
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <a class="btn btn-light" href="{% url 'reviews' %}">Cancel</a>
+                </div>
             </form>
         </div>
     </div>

@@ -9,11 +9,15 @@
 <div class="container">
     <div class="row">
         <div class="col">
+            <h2 class="mb-2">{{page_title}}</h2>
             <!-- multipart/form-data makes the cloudinary upload work -->
-            <form method="POST" action="" enctype="multipart/form-data" style="margin-top: 1.3em;">
+            <form method="POST" action="" enctype="multipart/form-data" class="d-flex flex-column gap-3">
                 {{ form | crispy }}
                 {% csrf_token %}
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <a class="btn btn-light" href="{% url 'pets' %}">Cancel</a>
+                </div>
             </form>
         </div>
     </div>
