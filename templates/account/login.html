@@ -10,7 +10,7 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <form class="login" method="POST" action="{% url 'account_login' %}">
+            <form class="login d-flex flex-column gap-3" method="POST" action="{% url 'account_login' %}">
                 {% csrf_token %}
                 <h2>Log In</h1>
                 {{ form | crispy }}
@@ -19,7 +19,10 @@
                     <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                 {% endif %}
 
+                <div>
                     <button type="submit" class="btn btn-primary">Log In</button>
+                    <a class="btn btn-light" href="{% url 'home' %}">Cancel</a>
+                </div>
             </form>
         </div>
     </div>
