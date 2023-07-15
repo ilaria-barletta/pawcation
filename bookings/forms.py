@@ -50,7 +50,7 @@ class PreVisitBookingForm(forms.ModelForm):
         has_already_booked_pre_visit = len(pre_visits_for_pet) > 0
 
         if (not self.is_updating and has_already_booked_pre_visit):
-            raise forms.ValidationError("You have already booked a pre-visit for this pet, and cannot book another. If you would like to change the booking, please visit the bookings page and edit your existing pre-visit.")
+            raise forms.ValidationError("You have already booked a pre-visit for this pet, and cannot book another. If you would like to change the one you have booked, please visit the bookings page and edit your existing pre-visit. Please note that if your pet has already completed a pre-visit, you won't be able to book another one. Only one pre-visit is allowed per pet.")
 
     class Meta:
         model = Booking
