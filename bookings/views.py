@@ -5,6 +5,7 @@ from django.views import generic
 from django.db.models import Q
 from .models import Pet, Booking, Review
 from .forms import ReviewForm, PetForm, PreVisitBookingForm, FullVisitBookingForm
+from datetime import timedelta
 
 
 # When users come to the site we want to show the home page 
@@ -238,6 +239,7 @@ class NewPreVisit(SuccessMessageMixin, generic.edit.CreateView):
     def get_form_kwargs(self):
         kwargs = super(NewPreVisit, self).get_form_kwargs()
         kwargs['user'] = self.request.user
+        kwargs['is_updating'] = False
         return kwargs
 
     def get_context_data(self, **kwargs):
@@ -251,8 +253,7 @@ class NewPreVisit(SuccessMessageMixin, generic.edit.CreateView):
         user = self.request.user
         form.instance.owner = user
         form.instance.booking_type = 0
-        # TODO: Make end date one hour later than start date 
-        form.instance.end_date = form.instance.start_date
+        form.instance.end_date = form.instance.start_date + timedelta(hours=1)
 
 
         return super(NewPreVisit, self).form_valid(form)
@@ -267,6 +268,7 @@ class UpdatePreVisit(SuccessMessageMixin, generic.edit.UpdateView):
     def get_form_kwargs(self):
         kwargs = super(UpdatePreVisit, self).get_form_kwargs()
         kwargs['user'] = self.request.user
+        kwargs['is_updating'] = True
         return kwargs
     
     def get_object(self, *args, **kwargs):
@@ -280,6 +282,10 @@ class UpdatePreVisit(SuccessMessageMixin, generic.edit.UpdateView):
         data['page_title'] = "Update Pre Visit"
 
         return data 
+    
+    def form_valid(self, form):
+        form.instance.end_date = form.instance.start_date + timedelta(hours=1)
+        return super(UpdatePreVisit, self).form_valid(form)
     
 class NewFullBooking(SuccessMessageMixin, generic.edit.CreateView):
     model = Booking

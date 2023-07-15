@@ -31,8 +31,11 @@ class PetForm(forms.ModelForm):
 
 class PreVisitBookingForm(forms.ModelForm):
 
+    is_updating = False
+
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user')
+        self.is_updating = kwargs.pop('is_updating')
         super().__init__(*args, **kwargs)
         if user:
             self.fields['pet'].queryset = Pet.objects.filter(owner=user)
@@ -46,7 +49,7 @@ class PreVisitBookingForm(forms.ModelForm):
         pre_visits_for_pet = list(filter(lambda booking: booking.booking_type == 0, bookings_for_pet))
         has_already_booked_pre_visit = len(pre_visits_for_pet) > 0
 
-        if (has_already_booked_pre_visit):
+        if (not self.is_updating and has_already_booked_pre_visit):
             raise forms.ValidationError("You have already booked a pre-visit for this pet, and cannot book another. If you would like to change the booking, please visit the bookings page and edit your existing pre-visit.")
 
     class Meta:
@@ -54,7 +57,7 @@ class PreVisitBookingForm(forms.ModelForm):
         fields = ('start_date', 'pet',)
         # Adapted from here: https://stackoverflow.com/questions/22846048/django-form-as-p-datefield-not-showing-input-type-as-date 
         widgets = {
-            'start_date': forms.DateInput(attrs={'type': 'date'}),
+            'start_date': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
         }
 
     
@@ -109,6 +112,6 @@ class FullVisitBookingForm(forms.ModelForm):
         fields = ('start_date', 'end_date', 'pet',)
         # Adapted from here: https://stackoverflow.com/questions/22846048/django-form-as-p-datefield-not-showing-input-type-as-date 
         widgets = {
-            'start_date': forms.DateInput(attrs={'type': 'date'}),
-            'end_date': forms.DateInput(attrs={'type': 'date'})
+            'start_date': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+            'end_date': forms.DateTimeInput(attrs={'type': 'datetime-local'})
         }
