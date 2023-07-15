@@ -9,16 +9,25 @@
         <div class="col">
             <h2 class="mb-2">Start a new booking</h2>
             <p>Choose your booking type below.</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Pre Visit</h5>
+                    <p>A successful pre-visit is mandatory before booking a stay with us. Please follow this path if the pet you're booking for has never had a previsit.</p>
                     <a class="btn btn-primary" href="{% url 'new_pre_visit' %}">Choose</a>
                 </div>
             </div>
+        </div>
             
+        <div class="col">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Full Booking</h5>
+                    <p>If you're planning to book a stay for a pet that we've already met and has had a successful previsit,  this is the right place.</p>
                     <a class="btn btn-primary" href="{% url 'new_full_booking' %}">Choose</a>
                 </div>
             </div>
