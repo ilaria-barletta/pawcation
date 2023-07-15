@@ -53,7 +53,7 @@ class Booking(models.Model):
         booking_type_name = BOOKING_TYPE[0][1]
         if self.booking_type == BOOKING_TYPE[1][0]:
             booking_type_name = BOOKING_TYPE[1][1]
-        return f'{booking_type_name} for {self.pet.name} from {self.start_date.strftime("%x")} to {self.end_date.strftime("%x")}'
+        return f'{booking_type_name} for {self.pet.name} from {self.start_date.strftime("%x %X")} to {self.end_date.strftime("%x %X")}'
 
 
 class Review(models.Model):
