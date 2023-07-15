@@ -77,9 +77,9 @@ class FullVisitBookingForm(forms.ModelForm):
         pet = cleaned_data.get("pet")
 
         # Validate start date and end date 
-        if (end_date < start_date):
+        if (end_date < start_date + datetime.timedelta(hours=1)):
             raise forms.ValidationError(
-                        "The booking end date must be after the start date"
+                        "The booking must end at least an hour after the start date"
                     )
         
         bookings_for_pet = list(Booking.objects.filter(pet=pet))
