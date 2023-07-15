@@ -4,7 +4,7 @@ from django.http import Http404
 from django.views import generic
 from django.db.models import Q
 from .models import Pet, Booking, Review
-from .forms import ReviewForm, PetForm, BookingForm
+from .forms import ReviewForm, PetForm, PreVisitBookingForm, FullVisitBookingForm
 
 
 # When users come to the site we want to show the home page 
@@ -204,69 +204,6 @@ class DeletePet(SuccessMessageMixin, generic.edit.DeleteView):
         return super(DeletePet, self).delete(request, *args, **kwargs)
 
 
-class NewBooking(SuccessMessageMixin, generic.edit.CreateView):
-    model = Booking
-    template_name = "create_edit_booking.html"
-    form_class = BookingForm
-    success_url = '/bookings'
-    success_message = "Your booking has been added successfully."
-
-    # This allows us to filter the list of pet for the booking to show
-    # the current users pets
-    def get_form_kwargs(self):
-        kwargs = super(NewBooking, self).get_form_kwargs()
-        kwargs['user'] = self.request.user
-        return kwargs
-
-    def get_context_data(self, **kwargs):
-        data = super().get_context_data(**kwargs)
-        # Change the title in the same template for new booking vs edit booking
-        data['page_title'] = "New Booking"
-
-        return data 
-
-    def form_valid(self, form):
-        user = self.request.user
-        form.instance.owner = user
-
-        # Check if this pet has stayed before and make a pre-visit 
-        # if they haven't and a full booking if they have 
-        pet = form.instance.pet
-        bookings_for_pet = list(Booking.objects.filter(pet=pet))
-        bookings_for_pet = list(filter(lambda booking: booking.has_ended(), bookings_for_pet))
-        booking_type = 0
-        if len(bookings_for_pet) > 0:
-            booking_type = 1
-
-        form.instance.booking_type = booking_type
-
-        return super(NewBooking, self).form_valid(form)
-
-
-class UpdateBooking(SuccessMessageMixin, generic.edit.UpdateView):
-    model = Booking
-    template_name = "create_edit_booking.html"
-    form_class = BookingForm
-    success_url = '/bookings'
-    success_message = "Your booking has been updated successfully."
-
-    def get_form_kwargs(self):
-        kwargs = super(UpdateBooking, self).get_form_kwargs()
-        kwargs['user'] = self.request.user
-        return kwargs
-    
-    def get_object(self, *args, **kwargs):
-        obj = super(UpdateBooking, self).get_object(*args, **kwargs)
-        if not obj.owner == self.request.user:
-            raise Http404
-        return obj
-    
-    def get_context_data(self, **kwargs):
-        data = super().get_context_data(**kwargs)
-        data['page_title'] = "Update Booking"
-
-        return data 
-
 
 class DeleteBooking(SuccessMessageMixin, generic.edit.DeleteView):
     model = Booking
@@ -284,3 +221,115 @@ class DeleteBooking(SuccessMessageMixin, generic.edit.DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, self.success_message)
         return super(DeleteBooking, self).delete(request, *args, **kwargs)
+    
+
+class StartNewBooking(generic.TemplateView):
+    template_name = "start_new_booking.html"
+
+class NewPreVisit(SuccessMessageMixin, generic.edit.CreateView):
+    model = Booking
+    template_name = "create_edit_booking.html"
+    form_class = PreVisitBookingForm
+    success_url = '/bookings'
+    success_message = "Your pre-visit has been added successfully."
+
+    # This allows us to filter the list of pet for the booking to show
+    # the current users pets
+    def get_form_kwargs(self):
+        kwargs = super(NewPreVisit, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        # Change the title in the same template for new booking vs edit booking
+        data['page_title'] = "New Pre Visit"
+
+        return data 
+
+    def form_valid(self, form):
+        user = self.request.user
+        form.instance.owner = user
+        form.instance.booking_type = 0
+        # TODO: Make end date one hour later than start date 
+        form.instance.end_date = form.instance.start_date
+
+
+        return super(NewPreVisit, self).form_valid(form)
+    
+class UpdatePreVisit(SuccessMessageMixin, generic.edit.UpdateView):
+    model = Booking
+    template_name = "create_edit_booking.html"
+    form_class = PreVisitBookingForm
+    success_url = '/bookings'
+    success_message = "Your pre-visit has been updated successfully."
+
+    def get_form_kwargs(self):
+        kwargs = super(UpdatePreVisit, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+    
+    def get_object(self, *args, **kwargs):
+        obj = super(UpdatePreVisit, self).get_object(*args, **kwargs)
+        if not obj.owner == self.request.user:
+            raise Http404
+        return obj
+    
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['page_title'] = "Update Pre Visit"
+
+        return data 
+    
+class NewFullBooking(SuccessMessageMixin, generic.edit.CreateView):
+    model = Booking
+    template_name = "create_edit_booking.html"
+    form_class = FullVisitBookingForm
+    success_url = '/bookings'
+    success_message = "Your full booking has been added successfully."
+
+    # This allows us to filter the list of pet for the booking to show
+    # the current users pets
+    def get_form_kwargs(self):
+        kwargs = super(NewFullBooking, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        # Change the title in the same template for new booking vs edit booking
+        data['page_title'] = "New Full Booking"
+
+        return data 
+
+    def form_valid(self, form):
+        user = self.request.user
+        form.instance.owner = user
+        form.instance.booking_type = 1
+
+        return super(NewFullBooking, self).form_valid(form)
+    
+
+class UpdateFullBooking(SuccessMessageMixin, generic.edit.UpdateView):
+    model = Booking
+    template_name = "create_edit_booking.html"
+    form_class = FullVisitBookingForm
+    success_url = '/bookings'
+    success_message = "Your full booking has been updated successfully."
+
+    def get_form_kwargs(self):
+        kwargs = super(UpdateFullBooking, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+    
+    def get_object(self, *args, **kwargs):
+        obj = super(UpdateFullBooking, self).get_object(*args, **kwargs)
+        if not obj.owner == self.request.user:
+            raise Http404
+        return obj
+    
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['page_title'] = "Update Full Booking"
+
+        return data 

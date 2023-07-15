@@ -1,0 +1,29 @@
+<!-- This template lets users choose their booking type -->
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2 class="mb-2">Start a new booking</h2>
+            <p>Choose your booking type below.</p>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Pre Visit</h5>
+                    <a class="btn btn-primary" href="{% url 'new_pre_visit' %}">Choose</a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Full Booking</h5>
+                    <a class="btn btn-primary" href="{% url 'new_full_booking' %}">Choose</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{%endblock%}

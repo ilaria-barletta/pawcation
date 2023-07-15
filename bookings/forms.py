@@ -6,7 +6,6 @@ from django.db.models import Q
 
 MAX_BOOKINGS_PER_DAY = 2
 MAX_STAY_DURATION_DAYS = 30
-MAX_PRE_VISIT_DURATION_DAYS = 1
 
 
 class ReviewForm(forms.ModelForm):
@@ -30,7 +29,36 @@ class PetForm(forms.ModelForm):
         fields = ('name', 'age', 'breed','allergies','notes','picture',)
 
 
-class BookingForm(forms.ModelForm):
+class PreVisitBookingForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user')
+        super().__init__(*args, **kwargs)
+        if user:
+            self.fields['pet'].queryset = Pet.objects.filter(owner=user)
+
+    # From here: https://docs.djangoproject.com/en/4.2/ref/forms/validation/#cleaning-and-validating-fields-that-depend-on-each-other
+    def clean(self):
+        cleaned_data = super().clean()
+        pet = cleaned_data.get("pet")
+
+        bookings_for_pet = list(Booking.objects.filter(pet=pet))
+        pre_visits_for_pet = list(filter(lambda booking: booking.booking_type == 0, bookings_for_pet))
+        has_already_booked_pre_visit = len(pre_visits_for_pet) > 0
+
+        if (has_already_booked_pre_visit):
+            raise forms.ValidationError("You have already booked a pre-visit for this pet, and cannot book another. If you would like to change the booking, please visit the bookings page and edit your existing pre-visit.")
+
+    class Meta:
+        model = Booking
+        fields = ('start_date', 'pet',)
+        # Adapted from here: https://stackoverflow.com/questions/22846048/django-form-as-p-datefield-not-showing-input-type-as-date 
+        widgets = {
+            'start_date': forms.DateInput(attrs={'type': 'date'}),
+        }
+
+    
+class FullVisitBookingForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user')
@@ -51,29 +79,22 @@ class BookingForm(forms.ModelForm):
                         "The booking end date must be after the start date"
                     )
         
-        # Get list of dates inclusive of start_date -> end_date
+        bookings_for_pet = list(Booking.objects.filter(pet=pet))
+        pre_visits_completed_for_pet = list(filter(lambda booking: booking.has_ended() and booking.booking_type == 0, bookings_for_pet))
+        has_completed_pre_visit = len(pre_visits_completed_for_pet) > 0
+
+        if not has_completed_pre_visit:
+            raise forms.ValidationError("This pet has not had a successful pre-visit yet so you cannot make a full booking. Please book and complete a pre-visit first.")
+        
+        
+        # Check that the booking isn't too long
         dates = [start_date+datetime.timedelta(days=x) for x in range((end_date-start_date).days)]
         dates.append(end_date)
-
-        bookings_for_pet = list(Booking.objects.filter(pet=pet))
-        bookings_completed_for_pet = list(filter(lambda booking: booking.has_ended(), bookings_for_pet))
-        is_pre_visit = len(bookings_completed_for_pet) < 1
-        future_pre_visits = list(filter(lambda booking: not booking.has_ended() and booking.booking_type == 0, bookings_for_pet))
-        has_already_booked_pre_visit = len(future_pre_visits) > 0
-
-        if (is_pre_visit and has_already_booked_pre_visit):
-            raise forms.ValidationError("You have already booked a pre-visit for this pet, and cannot book another. If you would like to change the booking, please visit the bookings page and edit your existing pre-visit.")
-
-        # This will validate if this is the first visit for this pet 
-        # and change the maximum number of days
-        max_days = MAX_PRE_VISIT_DURATION_DAYS if is_pre_visit else MAX_STAY_DURATION_DAYS
-        pre_visit_validation_days_message = "As this pet has not had a stay before we need to have a pre-visit. Please choose at most one day for your booking"
-        full_stay_validation_message = f"You have chosen to book for too many days. Please choose at most {max_days} days"
-        max_days_message = pre_visit_validation_days_message if is_pre_visit else full_stay_validation_message
-
+        max_days = MAX_STAY_DURATION_DAYS
         if (len(dates) > max_days):
-            raise forms.ValidationError(max_days_message)
+            raise forms.ValidationError(f"You have chosen to book for too many days. Please choose at most {max_days} days")
 
+        # Check that we have capacity for those dates.
         for date in dates:
             # Get all the bookings that start or end on this date
             bookings_on_date = Booking.objects.filter(Q(start_date=date) | Q(end_date=date))
@@ -91,5 +112,3 @@ class BookingForm(forms.ModelForm):
             'start_date': forms.DateInput(attrs={'type': 'date'}),
             'end_date': forms.DateInput(attrs={'type': 'date'})
         }
-
-    
