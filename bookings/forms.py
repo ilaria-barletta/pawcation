@@ -18,6 +18,14 @@ class ReviewForm(forms.ModelForm):
             # Only show bookings that have ended so we can't review future bookings 
             self.fields['booking'].queryset = Booking.objects.filter(Q(owner=user) & Q(end_date__lte=datetime.datetime.now()))
 
+    def clean(self):
+        cleaned_data = super().clean()
+        booking = cleaned_data.get('booking')
+
+        reviews_for_booking = Review.objects.filter(booking=booking)
+        if reviews_for_booking.count() > 0:
+            raise forms.ValidationError("You have already reviewed this booking and cannot review it again. If you would like, you can edit your existing review.")
+
     class Meta:
         model = Review
         fields = ('score', 'booking',)
