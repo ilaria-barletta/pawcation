@@ -100,9 +100,12 @@ class FullVisitBookingForm(forms.ModelForm):
         # Check that we have capacity for those dates.
         for date in dates:
             # Get all the bookings that start or end on this date
-            bookings_on_date = Booking.objects.filter(Q(start_date=date) | Q(end_date=date))
+            all_bookings = list(Booking.objects.all())
+            start_date_date = start_date.date()
+            end_date_date = end_date.date()
+            bookings_on_date = list(filter(lambda booking: booking.start_date.date() == start_date_date or booking.end_date.date() == end_date_date, all_bookings))
             # If we have too many then error 
-            if bookings_on_date.count() >= MAX_BOOKINGS_PER_DAY:
+            if len(bookings_on_date) >= MAX_BOOKINGS_PER_DAY:
                 raise forms.ValidationError(
                         "We don't have enough space for those dates. Please choose different dates"
                     )
