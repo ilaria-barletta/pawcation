@@ -68,7 +68,7 @@ class OtherUsersReviewList(generic.ListView):
         data['empty_message'] = "There are no reviews yet."
         data['can_modify_reviews'] = False
         # Only let logged in users leave reviews 
-        data['can_create_reviews'] = not self.request.user.is_anonymous
+        data['can_create_reviews'] = False
         data['page_title'] = "All Reviews" if self.request.user.is_anonymous else "Other Users Reviews"
 
         return data 
