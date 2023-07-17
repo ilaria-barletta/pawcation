@@ -10,9 +10,12 @@ MAX_STAY_DURATION_DAYS = 30
 
 class ReviewForm(forms.ModelForm):
 
+    is_updating = False
+
     # Taken from here: https://stackoverflow.com/questions/45847561/how-do-i-filter-values-in-django-createview-updateview
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user')
+        self.is_updating = kwargs.pop('is_updating')
         super().__init__(*args, **kwargs)
         if user:
             # Only show bookings that have ended so we can't review future bookings 
@@ -23,7 +26,7 @@ class ReviewForm(forms.ModelForm):
         booking = cleaned_data.get('booking')
 
         reviews_for_booking = Review.objects.filter(booking=booking)
-        if reviews_for_booking.count() > 0:
+        if not self.is_updating and reviews_for_booking.count() > 0:
             raise forms.ValidationError("You have already reviewed this booking and cannot review it again. If you would like, you can edit your existing review.")
 
     class Meta:

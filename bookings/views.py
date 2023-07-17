@@ -86,6 +86,7 @@ class NewReview(SuccessMessageMixin, generic.edit.CreateView):
     def get_form_kwargs(self):
         kwargs = super(NewReview, self).get_form_kwargs()
         kwargs['user'] = self.request.user
+        kwargs['is_updating'] = False
         return kwargs
 
     # Taken from here: https://stackoverflow.com/questions/21652073/django-how-to-set-a-hidden-field-on-a-generic-create-view
@@ -112,6 +113,7 @@ class UpdateReview(SuccessMessageMixin, generic.edit.UpdateView):
     def get_form_kwargs(self):
         kwargs = super(UpdateReview, self).get_form_kwargs()
         kwargs['user'] = self.request.user
+        kwargs['is_updating'] = True
         return kwargs
     
     # Taken from here: https://stackoverflow.com/questions/25324948/django-generic-updateview-how-to-check-credential 
