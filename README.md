@@ -4,24 +4,24 @@ Pawcation is a website addressed to dog owners offering hotel services for dogs.
 
 The live version of my project can be found here: 
 ___
-## UX Design
+# UX Design
 
-### Wireframes 
+# Wireframes 
 Wireframes for the project were created using Figma and can be viewed on Figma [here](https://www.figma.com/file/G1KsEzPmiHHn6TrtWUEKh2/Pawcation-Wireframes?type=design&node-id=4%3A376&mode=design&t=t87crDcdStwRB99v-1)
 
 ![Wireframes 1](readme-images/wireframes-1.png)
 ![Wireframes 2](readme-images/wireframes-2.png)
 ![Wireframes 3](readme-images/wireframes-3.png)
 
-## Database Design 
+# Database Design 
 I designed the Database using LucidChard. A link to the document is [here](https://lucid.app/lucidchart/2d227d87-755c-4bae-a0cb-cd0d41d74134/edit?viewport_loc=-720%2C-515%2C1875%2C903%2C0_0&invitationId=inv_8b495c89-08df-4f9f-bb0c-868687f2bdb8)
 
 ![Database Diagram](readme-images/database.png)
 
-## Agile 
+# Agile 
 A link to the Github project and stories can be found [here](https://github.com/users/ilaria-barletta/projects/2/views/1)
 
-## Technologies Used
+# Technologies Used
 * Django 
 * HTML5 
 * CSS 
@@ -32,7 +32,7 @@ A link to the Github project and stories can be found [here](https://github.com/
 * FontAwesome 
 
 ___
-## Features 
+# Features 
 __Homepage__: ![Welcome page and request to log in or register](add pic)
 
 This is the main page that the user sees before registering or logging in. 
@@ -63,23 +63,79 @@ In such case they will be asked to type in their username and password and both 
 __Succesfully logged in__: ![message showing registration successfull, user is in the system] (add pic)
 
 ___
-## Testing 
+# Testing 
 
-### Manual testing 
+## Manual testing 
+responsivness testing 
 
-responsivness testing
-browser compatibility testing
-bugs (resolved and unresolved)
-lighthouse testing
-code validation testing 
-user stories testing
-features testing
+### Validators:
+ * [html](https://validator.w3.org/#validate_by_input) testing
+ * [css](https://jigsaw.w3.org/css-validator/) testing
+ * [python](https://www.pythonchecker.com/) testing
+ * lighthouse testing
 
-| Test        | Outcome     |
-| ----------- | ----------- |
-| Title       | Pass        |
-| Title       | Pass        |
-| Title       | Pass        |
+
+### Fixed Bugs
+`1`
+
+**Expected** : Users should only be able to review bookings that have ended. 
+
+
+**Testing** : When creating a review on the review page, the list of bookings in the `booking` field dropdown should only include bookings that are in the past, and not in the future. 
+
+
+**Result** : The `booking` field dropdown included all bookings, even those that were dated to start in the future. 
+
+
+**Fix** : To fix this I updated the `queryset` for the `booking` field in the `ReviewForm`. I made use of Django's `__lte` date query helper and I added a check to make sure the end date of the booking is in the past: `Q(end_date__lte=datetime.datetime.now())` 
+
+`2`
+
+**Expected** : Users should not be able to modify bookings that have ended. 
+
+
+**Testing** : The booking list shows `edit` and `delete` buttons for bookings. These buttons should only be visible when the booking has ended. 
+
+
+**Result** : The `edit` and `delete` buttons were visible for all bookings, even those that had already ended. 
+
+
+**Fix** : I added a `has_ended` function to the `Booking` model and then used that in the template to hide the buttons if the `has_ended` function returned `True`. 
+
+`3`
+
+**Expected** : Users should not be able to edit or delete the bookings/reviews/pets of other users 
+
+
+**Testing** : I created two different bookings for two different users. When editing a booking I changed the URL to include the `id` of the booking belonging to the other user. This should not have worked. 
+
+
+**Result** : The user was able to access the booking of the other user and update it. 
+
+
+**Fix** : To fix this I added a `get_object` function to the view that checked the `owner` of the booking against the logged in user. If the check didn't match I redirected the user to a `404` page so they could not see the content of the other user. Below is an example of the code: 
+
+```
+def get_object(self, *args, **kwargs):
+    obj = super(UpdateReview, self).get_object(*args, **kwargs)
+    if not obj.owner == self.request.user:
+        raise Http404
+    return obj
+```
+
+`4`
+
+**Expected** : Logged in users should get directed to the `Bookings` page as their home page and should not be able to get back to the home page that contains `Register` and `Login` buttons. 
+
+
+**Testing** : When testing as a logged in user I clicked the site name in the navigation bar, which redirects users back to the home page if they are not logged in or to the bookings page if they are logged in. 
+
+
+**Result** : Clicking the link took me to the home page where I could click on the buttons to login or register. Since I was already logged in this did not make any sense for the user. 
+
+
+**Fix** : To fix this I added logic to the navigation bar to check if the user is logged in (`user.is_authenticated`) and if so, change the URL for the site name to go to `bookings` instead of `home`. 
+
 
 ### User stories testing
 1. Homepage: [Github Story](https://github.com/users/ilaria-barletta/projects/2/views/1?pane=issue&itemId=33380452):
@@ -271,7 +327,7 @@ features testing
 | The edit button shown for each one of the reviews the user has left, takes them to the update review form       | Pass        |
 | The fields of the form are pre-filled with the same data the user left in the first place       | Pass        |
 | The score can be modified but it can again be only a number from 1 to 5       | Pass        |
-| The submit button takes the user back to my reviews where the new score is shown       | XXXXX        |
+| The submit button takes the user back to my reviews where the new score is shown       | Pass        |
 | The  cancel button takes the user back to the reviews list     | Pass        |
 
 
@@ -329,9 +385,10 @@ features testing
 | Users can only manage their own pet details and bookings and not those of other users | Pass        |
 | Users can only manage their own reviews and not those of other users.  | Pass        |
 
-### Automated testing
 
-## Deployment, Forking and Cloning 
+# Deployment, Forking and Cloning 
+
+### Deployment
 The project has been deployed using Heroku. Here are the step to follow for the deployement:
 
 1. Access your Heroku account and click on "create a new app", name the app and select the region before hitting the create app button.   
@@ -352,4 +409,4 @@ To clone this repository:
 3. Use git to clone the copied link: `git clone LINK`. 
 
 ___
-## References
+# References
