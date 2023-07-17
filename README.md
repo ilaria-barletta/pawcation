@@ -82,32 +82,52 @@ features testing
 | Title       | Pass        |
 
 ### User stories testing
-1. Site registration [Github Story](https://github.com/users/ilaria-barletta/projects/2/views/1?pane=issue&itemId=30571231): 
+1. Homepage: [Github Story](https://github.com/users/ilaria-barletta/projects/2/views/1?pane=issue&itemId=33380452):
 
 | Test        | Outcome     |
 | ----------- | ----------- |
-| From homepage the register button takes user to registration form      | Pass        |
-| Form has username, password and email fields       | Pass        |
+| The homepage clearly describes what pawcation is for so users clearly understand if they're in the right place       | Pass        |
+| Register button is present and takes user to register form        | Pass        |
+| Log in button is present and takes user to log in form      | Pass        |
+| Link to reviews present, if clicked user is taken to a list of all the reviews present on the platform       | Pass        |
+
+
+2. All reviews: [Github Story](https://github.com/users/ilaria-barletta/projects/2/views/1?pane=issue&itemId=33458012):
+
+| Test        | Outcome     |
+| ----------- | ----------- |
+| All reviews page is accessible from the reviews link present in homepage       | Pass        |
+| All reviews shows all the reviews left by existing customers of  pawcation       | Pass        |
+| Reviews cannot be edited       | Pass        |
+| Reviews cannot be deleted       | Pass        |
+| Each review shows the following details: score, pet name, date, time and name of the user     | Pass        |
+
+
+
+3. Site registration [Github Story](https://github.com/users/ilaria-barletta/projects/2/views/1?pane=issue&itemId=30571231): 
+
+| Test        | Outcome     |
+| ----------- | ----------- |
+| Register form has username, password and email fields       | Pass        |
 | Username and password are mandatory fields       | Pass        |
 | If pass and confirm pass do not match, error msg shows       | Pass        |
 | Button to register present and working       | Pass        | 
 | Register button takes to bookings       | Pass        | 
 | Button to cancel present and working       | Pass        | 
-| cancel button takes user to homepage       | Pass        | 
+| Cancel button takes user to homepage       | Pass        | 
 
-2. Site login: [Github Story](https://github.com/users/ilaria-barletta/projects/2/views/1?pane=issue&itemId=30571430):
+4. Site login: [Github Story](https://github.com/users/ilaria-barletta/projects/2/views/1?pane=issue&itemId=30571430):
 
 | Test        | Outcome     |
 | ----------- | ----------- |
-| From homepage the login button takes user to login form       | Pass        |
-| Username and password are mandatory fields       | Pass        |
+| Log in form presents username and password as mandatory fields       | Pass        |
 | if user provides wrong username/password, error msg shows   | Pass        |
 | Button to  Login present and working      | Pass        |
 | Login button takes to bookings       | Pass        |
 | Button to cancel present and working | Pass        |
 | Cancel button takes user to  Homepage      | Pass        |
 
-3. Add Pet Details: [Github Story](https://github.com/users/ilaria-barletta/projects/2/views/1?pane=issue&itemId=30571658):
+5. Add Pet Details: [Github Story](https://github.com/users/ilaria-barletta/projects/2/views/1?pane=issue&itemId=30571658):
 
 | Test        | Outcome     |
 | ----------- | ----------- |
@@ -117,7 +137,7 @@ features testing
 | Button to submit is present and creates the pet and takes the user back to the pet list where the newly added pet is shown when clicked | Pass        |
 | Button to cancel is present and takes the user back to the pet list when clicked       | Pass        |
 
-4. View Pet List: [Github Story](https://github.com/users/ilaria-barletta/projects/2/views/1?pane=issue&itemId=31068112):
+6. View Pet List: [Github Story](https://github.com/users/ilaria-barletta/projects/2/views/1?pane=issue&itemId=31068112):
 
 | Test        | Outcome     |
 | ----------- | ----------- |
@@ -129,7 +149,7 @@ features testing
 | The "edit" option on a pet should take the user to the pet details form with the pets details filled in    | Pass        |
 | The "delete" option on a pet should take the user to the delete pet page    | Pass        |
 
-5. Update Per Details: [Github Story](https://github.com/users/ilaria-barletta/projects/2/views/1?pane=issue&itemId=30571798):
+7. Update Per Details: [Github Story](https://github.com/users/ilaria-barletta/projects/2/views/1?pane=issue&itemId=30571798):
 
 | Test        | Outcome     |
 | ----------- | ----------- |
@@ -139,7 +159,7 @@ features testing
 | The submit button should take the user back to the pet list and save the changes made to the data in the form       | Pass        |
 | The cancel button should take the user back to the pet list without saving any of the changes they did to the data in the form     | Pass        |
 
-6. Delete Pet: [Github Story](https://github.com/users/ilaria-barletta/projects/2/views/1?pane=issue&itemId=33380253):
+8. Delete Pet: [Github Story](https://github.com/users/ilaria-barletta/projects/2/views/1?pane=issue&itemId=33380253):
 
 | Test        | Outcome     |
 | ----------- | ----------- |
@@ -148,7 +168,7 @@ features testing
 | The cancel button will take the user back to the pet list ignoring the previous delete request.       | Pass        |
 
 
-7. Booking type selection: [Github Story](https://github.com/users/ilaria-barletta/projects/2/views/1?pane=issue&itemId=33381567):
+9. Booking type selection: [Github Story](https://github.com/users/ilaria-barletta/projects/2/views/1?pane=issue&itemId=33381567):
 
 | Test        | Outcome     |
 | ----------- | ----------- |
@@ -158,7 +178,7 @@ features testing
 | The choose button in the full booking box takes the user to the new full booking form     | Pass        |
 
 
-8. Create a pre-visit booking: [Github Story](https://github.com/users/ilaria-barletta/projects/2/views/1?pane=issue&itemId=30571928):
+10. Create a pre-visit booking: [Github Story](https://github.com/users/ilaria-barletta/projects/2/views/1?pane=issue&itemId=30571928):
 
 | Test        | Outcome     |
 | ----------- | ----------- |
@@ -171,7 +191,7 @@ features testing
 
 
 
-9. Create a stay booking: [Github Story](https://github.com/users/ilaria-barletta/projects/2/views/1?pane=issue&itemId=30571943):
+11. Create a stay booking: [Github Story](https://github.com/users/ilaria-barletta/projects/2/views/1?pane=issue&itemId=30571943):
 
 | Test        | Outcome     |
 | ----------- | ----------- |
@@ -184,14 +204,14 @@ features testing
 | The submit button will take the user to the booking page where the new booking will be listed along with the other bookings the user mighy have       | Pass        |
 | The cancel button will take the user back to the booking page       | Pass        |
 
-10. Create a stay booking - date validation: [Github Story](https://github.com/users/ilaria-barletta/projects/2/views/1?pane=issue&itemId=30572301)
+12. Create a stay booking - date validation: [Github Story](https://github.com/users/ilaria-barletta/projects/2/views/1?pane=issue&itemId=30572301)
 & Create a stay booking - pet capacity validation: [Github Story](https://github.com/users/ilaria-barletta/projects/2/views/1?pane=issue&itemId=30572465):
 
 | Test        | Outcome     |
 | ----------- | ----------- |
 | clicking on submit, if the date the user is booking for is not available due to limited capacity, an error message is shown and the user is asked to book for a different date        | Pass        |
 
-11. View booking list: [Github Story](https://github.com/users/ilaria-barletta/projects/2/views/1?pane=issue&itemId=31068173):
+13. View booking list: [Github Story](https://github.com/users/ilaria-barletta/projects/2/views/1?pane=issue&itemId=31068173):
 
 | Test        | Outcome     |
 | ----------- | ----------- |
@@ -202,7 +222,7 @@ features testing
 | Booking that are not completed yet present the option to be deleted       | Pass        |
 
 
-12. Update a booking: [Github Story](https://github.com/users/ilaria-barletta/projects/2/views/1?pane=issue&itemId=33384945):
+14. Update a booking: [Github Story](https://github.com/users/ilaria-barletta/projects/2/views/1?pane=issue&itemId=33384945):
 
 | Test        | Outcome     |
 | ----------- | ----------- |
@@ -212,7 +232,7 @@ features testing
 | The submit button takes the user back to bookings and shows the updated details of the booking       | Pass        |
 | The cancel button takes the user back to bookings     | Pass        |
 
-13. Delete a booking: [Github Story](https://github.com/users/ilaria-barletta/projects/2/views/1?pane=issue&itemId=33380250):
+15. Delete a booking: [Github Story](https://github.com/users/ilaria-barletta/projects/2/views/1?pane=issue&itemId=33380250):
 
 | Test        | Outcome     |
 | ----------- | ----------- |
@@ -222,86 +242,92 @@ features testing
 | The cancel button will take the user back to the booking page       | Pass        |
 
 
-14. Create a property review: [Github Story](https://github.com/users/ilaria-barletta/projects/2/views/1?pane=issue&itemId=30573214):
+16. Create a property review: [Github Story](https://github.com/users/ilaria-barletta/projects/2/views/1?pane=issue&itemId=30573214):
 
 | Test        | Outcome     |
 | ----------- | ----------- |
-| Title       | Pass        |
-| Title       | Pass        |
-| Title       | Pass        |
-| Title       | Pass        |
-| Title       | Pass        |
-| Title       | Pass        |
-| Title       | Pass        |
+| The user can navigate to the new review form using the new review button         | Pass        |
+| The form presents fields for score and booking and are both mandatory     | Pass        |
+| The scoring system goes from 1 to 5, if a user provides a different score, a message tells them to select a value that is less than or equal to 5      | Pass        |
+| The booking fields shows a dropdown list of stays that includes only the bookings that have been completed       | Pass        |
 
 
 
-15. View property reviews: []():
+
+17. View property reviews: [Github Story](https://github.com/users/ilaria-barletta/projects/2/views/1?pane=issue&itemId=30573713):
 
 | Test        | Outcome     |
 | ----------- | ----------- |
-| Title       | Pass        |
-| Title       | Pass        |
-| Title       | Pass        |
-| Title       | Pass        |
-| Title       | Pass        |
-| Title       | Pass        |
-| Title       | Pass        |
+| My reviews presents a list including all the reviews left by the logged in user        | Pass        |
+| Other users reviews do not show       | Pass        |
+| The reviews show the pet name, the type of booking and the date they refer to       | Pass        |
+| The reviews present the option to be edited or deleted       | Pass        |
 
-16. Update a property review: []():
+
+18. Update a property review: [Github Story](https://github.com/users/ilaria-barletta/projects/2/views/1?pane=issue&itemId=30573463):
 
 | Test        | Outcome     |
 | ----------- | ----------- |
-| Title       | Pass        |
-| Title       | Pass        |
-| Title       | Pass        |
-| Title       | Pass        |
-| Title       | Pass        |
-| Title       | Pass        |
+| The edit button shown for each one of the reviews the user has left, takes them to the update review form       | Pass        |
+| The fields of the form are pre-filled with the same data the user left in the first place       | Pass        |
+| The score can be modified but it can again be only a number from 1 to 5       | Pass        |
+| The submit button takes the user back to my reviews where the new score is shown       | XXXXX        |
+| The  cancel button takes the user back to the reviews list     | Pass        |
 
-17. Delete a property review: []():
 
-| Test        | Outcome     |
-| ----------- | ----------- |
-| Title       | Pass        |
-| Title       | Pass        |
-| Title       | Pass        |
-| Title       | Pass        |
-| Title       | Pass        |
-| Title       | Pass        |
-
-18. View other users review: []():
+19. Delete a property review: [Github Story](https://github.com/users/ilaria-barletta/projects/2/views/1?pane=issue&itemId=31201677):
 
 | Test        | Outcome     |
 | ----------- | ----------- |
-| Title       | Pass        |
-| Title       | Pass        |
-| Title       | Pass        |
-| Title       | Pass        |
-| Title       | Pass        |
-| Title       | Pass        |
+| All the reviews in the "my reviews" list present a delete button       | Pass        |
+| The page confirms if the user would like to delete the reviews and shows the name of the pet, the type of bookings,  the time and the username of the review to be deleted       | Pass        |
+| The delete button will delete the review and take the user back to the reviews page where the deleted review will no longer be visible       | Pass        |
+| The cancel button will take the user back to the reviews page       | Pass        |
 
-19.  []():
 
-| Test        | Outcome     |
-| ----------- | ----------- |
-| Title       | Pass        |
-| Title       | Pass        |
-| Title       | Pass        |
-| Title       | Pass        |
-| Title       | Pass        |
-| Title       | Pass        |
-
-20.  []():
+20. View other users review: [Github Story](https://github.com/users/ilaria-barletta/projects/2/views/1?pane=issue&itemId=31201743):
 
 | Test        | Outcome     |
 | ----------- | ----------- |
-| Title       | Pass        |
-| Title       | Pass        |
-| Title       | Pass        |
-| Title       | Pass        |
-| Title       | Pass        |
-| Title       | Pass        |
+| Other user reviews presents a list of all the reviews present in the system exluding the reviews left by the logged in user       | Pass        |
+| Each review presents the following info: score, booking type, pet name, date and time, name of user that left the review        | Pass        |
+| Other users reviews cannot be edited or deleted       | Pass        |
+
+21. Success/Error messages: [Github Story](https://github.com/users/ilaria-barletta/projects/2/views/1?pane=issue&itemId=32346104):
+
+| Test        | Outcome     |
+| ----------- | ----------- |
+| Register form correctly filled takes user to booking, "successfully signed in" message shows.        | Pass        |
+| Log in form correctly filled takes user to booking, "successfully signed in" message shows.       | Pass        |
+| Pre-visit form correctly filled shows: Your pre-visit has been added successfully.       | Pass        |
+| Full booking successful shows:Your full booking has been added successfully.       | Pass        |
+| Booking request for dates already full (no capacity) shows: We don't have enough space for those dates. Please choose different dates       | Pass        |
+| Booking requests for less than 1 hour show: The booking must end at least an hour after the start date| Pass
+| Booking requests for more than 30 days show: You have chosen to book for too many days. Please choose at most 30 days         | Pass        |
+| Pre-visit form filled for a pet that has already a pre-visit booked but not yet happened shows: You have already booked a pre-visit for this pet, and cannot book another. If you would like to change the one you have booked, please visit the bookings page and edit your existing pre-visit. Please note that if your pet has already completed a pre-visit, you won't be able to book another one. Only one pre-visit is allowed per pet.       | Pass        |
+| Edit pre-visit if successful shows:Your pre-visit has been updated successfully.       | Pass        |
+| Delete your pre-visit shows:Your booking has been deleted successfully. | Pass        |
+| Edit your full booking if successful shows: Your full booking has been updated successfully.| Pass        |
+| Delete your full booking shows: Your booking has been deleted successfully.  | Pass        |
+| Add your pet shows: Your pet has been added successfully.| Pass        |
+| Edit your pet shows: Your pet has been updated successfully.| Pass        |
+| Delete your pet shows: Your pet has been deleted successfully. | Pass        |
+| Add a review:Your review has been added successfully. | Pass        |
+| Update a reviews: Your review has been updated successfully| Pass        |
+| Delete a review:Your review has been deleted successfully | Pass        |
+| If user tries to review a visit already reviewed: You have already reviewed this booking and cannot review it again. If you would like, you can edit your existing review  | Pass        |
+| Log out shows: You have signed out.| Pass        |
+
+
+22. User authorization: [Github Story](https://github.com/users/ilaria-barletta/projects/2/views/1?pane=issue&itemId=30572644):
+
+| Test        | Outcome     |
+| ----------- | ----------- |
+| Users cannot book a stay unless they are logged in | Pass       
+| Users cannot upload pet details without being logged in.| Pass        |
+| Users need to have created their pet details to be able to book a stay. | Pass        |
+| Users can only manage their own pet details and bookings and not those of other users | Pass        |
+| Users can only manage their own reviews and not those of other users.  | Pass        |
 
 ### Automated testing
 
