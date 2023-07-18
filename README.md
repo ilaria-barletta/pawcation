@@ -2,24 +2,28 @@
 
 Pawcation is a website addressed to dog owners offering hotel services for dogs. Having a dog is wonderful but we all know how hard it can be, at times,  to find a safe place for our furry friends when we are not around.Enters Pawcation, a small business that offer safe stays so that our dogs are treated well until we get back. 
 
+![Pawcation on multiple devices](static/assets/images/Pawcation-responsive.png)
+
 The live version of my project can be found here: 
 ___
 # UX Design
 
-# Wireframes 
+In Pawcation I have tried to build a very user friendly app,that guides the user via buttons and forms to perform the actions they want to perform on the platform in order to book, update, delete and review stay for their dogs.The app is easy to navigate and in order to make every action count, the user  will get confirmation every time an action is performed letting them know if it's successfull or if an error occured. They will also receive details on how to fix such errors to proceed. The design picked here is minimal, the main image is a cartoonish drawing that most people loving animals will enjoy and that makes the scope of the app clear even before reading. I have then picked a bright yellow for the nav bar and the footer to give a bit of color to the page and also match the hotel image.
+
+## Wireframes 
 Wireframes for the project were created using Figma and can be viewed on Figma [here](https://www.figma.com/file/G1KsEzPmiHHn6TrtWUEKh2/Pawcation-Wireframes?type=design&node-id=4%3A376&mode=design&t=t87crDcdStwRB99v-1)
 
 ![Wireframes 1](readme-images/wireframes-1.png)
 ![Wireframes 2](readme-images/wireframes-2.png)
 ![Wireframes 3](readme-images/wireframes-3.png)
 
-# Database Design 
+## Database Design 
 I designed the Database using LucidChard. A link to the document is [here](https://lucid.app/lucidchart/2d227d87-755c-4bae-a0cb-cd0d41d74134/edit?viewport_loc=-720%2C-515%2C1875%2C903%2C0_0&invitationId=inv_8b495c89-08df-4f9f-bb0c-868687f2bdb8)
 
 ![Database Diagram](readme-images/database.png)
 
-# Agile 
-A link to the Github project and stories can be found [here](https://github.com/users/ilaria-barletta/projects/2/views/1)
+## Agile 
+In this project I have used the agile method, a link to the Github project and stories can be found [here](https://github.com/users/ilaria-barletta/projects/2/views/1)
 
 # Technologies Used
 * Django 
@@ -44,6 +48,8 @@ A quick but clear in the scope message to the user informs them of what pawcatio
 The message contains a link that if clicked will show reviews left by other customers.
 There are then 2 buttons that let the user register if they are new or log in if they are known users. 
 
+__All reviews__
+
 __Register__: ![Registration form] (add pic)
 
 This is the first option the user has and can click on in order to provide their details to access the service. 
@@ -62,20 +68,31 @@ In such case they will be asked to type in their username and password and both 
 
 __Succesfully logged in__: ![message showing registration successfull, user is in the system] (add pic)
 
+__Pets__:
+
+__Bookings__:
+
+__Reviews__:
+
+__Other users reviews__:
+
+__Sign out__:
+
+
 ___
 # Testing 
 
 ## Manual testing 
 responsivness testing 
 
-### Validators:
+## Validators:
  * [html](https://validator.w3.org/#validate_by_input) testing
  * [css](https://jigsaw.w3.org/css-validator/) testing
  * [python](https://www.pythonchecker.com/) testing
  * lighthouse testing
 
 
-### Fixed Bugs
+## Fixed Bugs
 `1`
 
 **Expected** : Users should only be able to review bookings that have ended. 
@@ -137,7 +154,7 @@ def get_object(self, *args, **kwargs):
 **Fix** : To fix this I added logic to the navigation bar to check if the user is logged in (`user.is_authenticated`) and if so, change the URL for the site name to go to `bookings` instead of `home`. 
 
 
-### User stories testing
+## User stories testing
 1. Homepage: [Github Story](https://github.com/users/ilaria-barletta/projects/2/views/1?pane=issue&itemId=33380452):
 
 | Test        | Outcome     |
@@ -388,7 +405,7 @@ def get_object(self, *args, **kwargs):
 
 # Deployment, Forking and Cloning 
 
-### Deployment
+## Deployment
 The project has been deployed using Heroku. Here are the step to follow for the deployement:
 
 1. Access your Heroku account and click on "create a new app", name the app and select the region before hitting the create app button.   
@@ -400,7 +417,7 @@ The live link to my project is here: https://pawcation.herokuapp.com/
 
 
 
-### Forking & Cloning
+## Forking & Cloning
 To fork this repository click on the "Fork" button in the top right of the repository in Github. 
 
 To clone this repository:
