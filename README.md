@@ -8,7 +8,7 @@ The live version of my project can be found here:
 ___
 # UX Design
 
-In Pawcation I have tried to build a very user friendly app,that guides the user via buttons and forms to perform the actions they want to perform on the platform in order to book, update, delete and review stay for their dogs.The app is easy to navigate and in order to make every action count, the user  will get confirmation every time an action is performed letting them know if it's successfull or if an error occured. They will also receive details on how to fix such errors to proceed. The design picked here is minimal, the main image is a cartoonish drawing that most people loving animals will enjoy and that makes the scope of the app clear even before reading. I have then picked a bright yellow for the nav bar and the footer to give a bit of color to the page and also match the hotel image.
+In Pawcation I have tried to build a very user friendly app,that guides the user via buttons and forms to perform the actions they want to perform on the platform in order to book, update, delete and review stays for their dogs.The app is easy to navigate and in order to make every action count, the user  will get confirmation every time an action is performed letting them know if it's successfull or if an error occured. They will also receive details on how to fix such errors to proceed. The design picked here is minimal, the main image is a cartoonish drawing that most people loving animals will enjoy and that makes the scope of the app clear even before reading. I have then picked a bright yellow for the nav bar and the footer to give a bit of color to the page and also match the hotel image.
 
 ## Wireframes 
 Wireframes for the project were created using Figma and can be viewed on Figma [here](https://www.figma.com/file/G1KsEzPmiHHn6TrtWUEKh2/Pawcation-Wireframes?type=design&node-id=4%3A376&mode=design&t=t87crDcdStwRB99v-1)
@@ -37,7 +37,7 @@ In this project I have used the agile method, a link to the Github project and s
 
 ___
 # Features 
-__Homepage__: ![Welcome page and request to log in or register](add pic)
+__Homepage__: ![Welcome page and request to log in or register](static/assets/images/Pawcation-homepage.png)
 
 This is the main page that the user sees before registering or logging in. 
 The content is centered and the style is clean and simple. 
@@ -48,35 +48,42 @@ A quick but clear in the scope message to the user informs them of what pawcatio
 The message contains a link that if clicked will show reviews left by other customers.
 There are then 2 buttons that let the user register if they are new or log in if they are known users. 
 
-__All reviews__
+__All reviews__: ![reviews page as reachable form home page](static/assets/images/all-reviews-list.png)
 
-__Register__: ![Registration form] (add pic)
+__Register__: ![Registration form and registration successfull message](static/assets/images/registration-pawcation.png)
 
 This is the first option the user has and can click on in order to provide their details to access the service. 
 When clicked the user will be taken to a form page where some details will be requested. 
 In particular they will be asked to provide username and password. An email can be also provided but that's optional. 
 The password needs to be selected once and then typed it again for confirmation. 
 
-__Successfully registered__: ![message showing registration successfull, user is in the system] (add pic)
+__Successfully registered__:
+
 When the process is complete and the user selects register they are shown a screen where options are listed in the nav bar. 
 A pop up message saying "succesfully signed in" is showed to them  
 
-__Log in__: ![log in form] (add pic)
+__Log in__: ![log in form and log in successfull message](static/assets/images/login-pawcation.png)
 
 Alternatively the user that already has an accound can just log in into it selecting the relevant button. 
 In such case they will be asked to type in their username and password and both fields are mandatory. 
 
-__Succesfully logged in__: ![message showing registration successfull, user is in the system] (add pic)
+__Succesfully logged in__: 
 
-__Pets__:
+__Pets__: ![pets list and add new pet form](static/assets/images/pet-create-view.png)
+![pets update and delete](static/assets/images/pet-update-delete.png)
 
-__Bookings__:
 
-__Reviews__:
+__Bookings__: ![bookings list and option to select booking type](static/assets/images/bookings-lists-booking-type.png)
+![new previsit and new fullbooking forms](static/assets/images/new-previsit-fullbooking.png)
+![update previsit and update fullbooking](static/assets/images/update-previsit-fullbooking.png)
+![delete bookings](static/assets/images/delete-booking.png)
 
-__Other users reviews__:
+__Reviews__: ![reviews list, add review](static/assets/images/reviews-list-and-add.png)
+![update and delete reviews](static/assets/images/update-delete-reviews.png)
 
-__Sign out__:
+__Other users reviews__: ![other users reviews](static/assets/images/Other-users-reviews.png)
+
+__Sign out__: ![sign out message and successfull signed out](static/assets/images/sign-out-pawcation.png)
 
 
 ___
@@ -299,7 +306,7 @@ def get_object(self, *args, **kwargs):
 
 | Test        | Outcome     |
 | ----------- | ----------- |
-| All the bookings that are not completed yet in the booking page present the option do be edited      | Pass        |
+| All the bookings that are not completed yet in the booking page present the option to be edited      | Pass        |
 | the edit button takes the user to the update booking form       | Pass        |
 | the field in the update booking form are prefilled with the choices the user originally made. they can be edited.       | Pass        |
 | The submit button takes the user back to bookings and shows the updated details of the booking       | Pass        |
@@ -362,7 +369,7 @@ def get_object(self, *args, **kwargs):
 
 | Test        | Outcome     |
 | ----------- | ----------- |
-| Other user reviews presents a list of all the reviews present in the system exluding the reviews left by the logged in user       | Pass        |
+| Other user reviews page presents a list of all the reviews present in the system exluding the reviews left by the logged in user       | Pass        |
 | Each review presents the following info: score, booking type, pet name, date and time, name of user that left the review        | Pass        |
 | Other users reviews cannot be edited or deleted       | Pass        |
 
