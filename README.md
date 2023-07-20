@@ -99,79 +99,10 @@ __Sign out__: ![sign out message and successfull signed out](static/assets/image
 ___
 # Testing 
 
-## Manual testing 
-responsivness testing 
+## User stories testing / manual testing 
 
-## Validators:
- * [html](https://validator.w3.org/#validate_by_input) testing
- * [css](https://jigsaw.w3.org/css-validator/) testing
- * [python](https://www.pythonchecker.com/) testing
- * lighthouse testing
+I have tested the app thoroughly and you can see the outcome of the manual testing below where I've detailed each feature tested in separate tables. You can also see the user story in Github which contains the acceptance criteria which aided the testing. 
 
-
-## Fixed Bugs
-`1`
-
-**Expected** : Users should only be able to review bookings that have ended. 
-
-
-**Testing** : When creating a review on the review page, the list of bookings in the `booking` field dropdown should only include bookings that are in the past, and not in the future. 
-
-
-**Result** : The `booking` field dropdown included all bookings, even those that were dated to start in the future. 
-
-
-**Fix** : To fix this I updated the `queryset` for the `booking` field in the `ReviewForm`. I made use of Django's `__lte` date query helper and I added a check to make sure the end date of the booking is in the past: `Q(end_date__lte=datetime.datetime.now())` 
-
-`2`
-
-**Expected** : Users should not be able to modify bookings that have ended. 
-
-
-**Testing** : The booking list shows `edit` and `delete` buttons for bookings. These buttons should only be visible when the booking has ended. 
-
-
-**Result** : The `edit` and `delete` buttons were visible for all bookings, even those that had already ended. 
-
-
-**Fix** : I added a `has_ended` function to the `Booking` model and then used that in the template to hide the buttons if the `has_ended` function returned `True`. 
-
-`3`
-
-**Expected** : Users should not be able to edit or delete the bookings/reviews/pets of other users 
-
-
-**Testing** : I created two different bookings for two different users. When editing a booking I changed the URL to include the `id` of the booking belonging to the other user. This should not have worked. 
-
-
-**Result** : The user was able to access the booking of the other user and update it. 
-
-
-**Fix** : To fix this I added a `get_object` function to the view that checked the `owner` of the booking against the logged in user. If the check didn't match I redirected the user to a `404` page so they could not see the content of the other user. Below is an example of the code: 
-
-```
-def get_object(self, *args, **kwargs):
-    obj = super(UpdateReview, self).get_object(*args, **kwargs)
-    if not obj.owner == self.request.user:
-        raise Http404
-    return obj
-```
-
-`4`
-
-**Expected** : Logged in users should get directed to the `Bookings` page as their home page and should not be able to get back to the home page that contains `Register` and `Login` buttons. 
-
-
-**Testing** : When testing as a logged in user I clicked the site name in the navigation bar, which redirects users back to the home page if they are not logged in or to the bookings page if they are logged in. 
-
-
-**Result** : Clicking the link took me to the home page where I could click on the buttons to login or register. Since I was already logged in this did not make any sense for the user. 
-
-
-**Fix** : To fix this I added logic to the navigation bar to check if the user is logged in (`user.is_authenticated`) and if so, change the URL for the site name to go to `bookings` instead of `home`. 
-
-
-## User stories testing
 1. Homepage: [Github Story](https://github.com/users/ilaria-barletta/projects/2/views/1?pane=issue&itemId=33380452):
 
 | Test        | Outcome     |
@@ -419,6 +350,91 @@ def get_object(self, *args, **kwargs):
 | Users need to have created their pet details to be able to book a stay. | Pass        |
 | Users can only manage their own pet details and bookings and not those of other users | Pass        |
 | Users can only manage their own reviews and not those of other users.  | Pass        |
+
+## Fixed Bugs
+`1`
+
+**Expected** : Users should only be able to review bookings that have ended. 
+
+
+**Testing** : When creating a review on the review page, the list of bookings in the `booking` field dropdown should only include bookings that are in the past, and not in the future. 
+
+
+**Result** : The `booking` field dropdown included all bookings, even those that were dated to start in the future. 
+
+
+**Fix** : To fix this I updated the `queryset` for the `booking` field in the `ReviewForm`. I made use of Django's `__lte` date query helper and I added a check to make sure the end date of the booking is in the past: `Q(end_date__lte=datetime.datetime.now())` 
+
+`2`
+
+**Expected** : Users should not be able to modify bookings that have ended. 
+
+
+**Testing** : The booking list shows `edit` and `delete` buttons for bookings. These buttons should only be visible when the booking has ended. 
+
+
+**Result** : The `edit` and `delete` buttons were visible for all bookings, even those that had already ended. 
+
+
+**Fix** : I added a `has_ended` function to the `Booking` model and then used that in the template to hide the buttons if the `has_ended` function returned `True`. 
+
+`3`
+
+**Expected** : Users should not be able to edit or delete the bookings/reviews/pets of other users 
+
+
+**Testing** : I created two different bookings for two different users. When editing a booking I changed the URL to include the `id` of the booking belonging to the other user. This should not have worked. 
+
+
+**Result** : The user was able to access the booking of the other user and update it. 
+
+
+**Fix** : To fix this I added a `get_object` function to the view that checked the `owner` of the booking against the logged in user. If the check didn't match I redirected the user to a `404` page so they could not see the content of the other user. Below is an example of the code: 
+
+```
+def get_object(self, *args, **kwargs):
+    obj = super(UpdateReview, self).get_object(*args, **kwargs)
+    if not obj.owner == self.request.user:
+        raise Http404
+    return obj
+```
+
+`4`
+
+**Expected** : Logged in users should get directed to the `Bookings` page as their home page and should not be able to get back to the home page that contains `Register` and `Login` buttons. 
+
+
+**Testing** : When testing as a logged in user I clicked the site name in the navigation bar, which redirects users back to the home page if they are not logged in or to the bookings page if they are logged in. 
+
+
+**Result** : Clicking the link took me to the home page where I could click on the buttons to login or register. Since I was already logged in this did not make any sense for the user. 
+
+
+**Fix** : To fix this I added logic to the navigation bar to check if the user is logged in (`user.is_authenticated`) and if so, change the URL for the site name to go to `bookings` instead of `home`. 
+
+## Remaining Bugs 
+`4`
+
+**Expected** : Users should not be able to make multiple bookings for the same pet with dates that overlap
+
+
+**Testing** : When testing the booking form I created several bookings with different dates. I was able to create two different bookings for the same pet with dates that overlapped e.g 
+
+First Booking: 18.07.2023 -> 18.07.2023
+Second Booking: 16.07.2023 -> 23.07.2023
+
+
+**Result** : I was able to successfully create both bookings and the app didn't prevent the second booking being made with overlapping dates. 
+
+
+**Needed Fix** : To fix this I would need to add to the existing validation logic in the booking form to handle this case. As there is already a lot of validation, and this case is not likely to cause issues for users as they already know when they have bookings clearly from the UI, then I have decided to leave this out of the MVP. This is something that could be planned for the future.  
+
+
+## Validators:
+ * [html](https://validator.w3.org/#validate_by_input) testing
+ * [css](https://jigsaw.w3.org/css-validator/) testing
+ * [python](https://www.pythonchecker.com/) testing
+ * lighthouse testing
 
 
 # Deployment, Forking and Cloning 
