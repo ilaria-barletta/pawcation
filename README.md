@@ -263,7 +263,7 @@ def get_object(self, *args, **kwargs):
 | Test        | Outcome     |
 | ----------- | ----------- |
 | The user can select the start date and the time for their previsit       | Pass        |
-| The start date must not be in the past     | Pass        |
+| The start date must be in the future (at least tomorrow)     | Pass        |
 | The user can select the pet they are booking the pre-visit for from the dropdow list showing all the pet that particular user has registered on the platform       | Pass        |
 | The user can book only one previsit per pet. If the pet has already completed a previsit or has one booked and not yet completed then an error message will be shown giving information regaring the policy (just one previsit per pet) and the instruction to edit the future pre-visit already booked       | Pass        |
 | The submit button should take the user back to bookings where the new pre-visit booked will be visible       | Pass        |
@@ -276,6 +276,7 @@ def get_object(self, *args, **kwargs):
 | Test        | Outcome     |
 | ----------- | ----------- |
 | The user can select the start date, end date (date and time) for their booking     | Pass        |
+| The start date must be in the future (at least tomorrow)     | Pass        |
 | The user can select the pet they're planning to book for from the dropdown list of pets. The list of pets shows all the pets the logged is user has added to their account.        | Pass        |
 | The user cannot book a stay for more than 30 days        | Pass        |
 | The user cannot book a stay for less than 1 hour     | Pass        |
