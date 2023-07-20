@@ -73,7 +73,6 @@ class PreVisitBookingForm(forms.ModelForm):
 
     
 class FullVisitBookingForm(forms.ModelForm):
-
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user')
         super().__init__(*args, **kwargs)

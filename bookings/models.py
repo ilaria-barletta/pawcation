@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, timedelta
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -11,6 +11,10 @@ BOOKING_TYPE = ((0, "Pre Visit"), (1, "Stay"))
 def validate_date_is_present_or_future(datetime):
     if datetime.date() < date.today():
         raise ValidationError("Date cannot be in the past")
+
+def validate_date_is_future(datetime):
+    if datetime.date() < date.today() + timedelta(days=1):
+        raise ValidationError("Date must be in the future")
 
 
 class Pet(models.Model):
@@ -34,7 +38,7 @@ class Pet(models.Model):
 
 
 class Booking(models.Model):
-    start_date = models.DateTimeField(validators=[validate_date_is_present_or_future])
+    start_date = models.DateTimeField(validators=[validate_date_is_future])
     end_date = models.DateTimeField(validators=[validate_date_is_present_or_future])
     owner = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="bookings")
