@@ -433,7 +433,7 @@ Second Booking: 16.07.2023 -> 23.07.2023
 ## Validators:
  * [html](https://validator.w3.org/#validate_by_input) testing
  * [css](https://jigsaw.w3.org/css-validator/) testing
- * [python](https://www.pythonchecker.com/) testing
+ * [python](https://pep8ci.herokuapp.com) testing
  * lighthouse testing
 
 
