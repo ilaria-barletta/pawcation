@@ -4,11 +4,21 @@ Pawcation is a website addressed to dog owners offering hotel services for dogs.
 
 ![Pawcation on multiple devices](static/assets/images/Pawcation-responsive.png)
 
-The live version of my project can be found here: 
+The live link to my project is here: https://pawcation.herokuapp.com/
 ___
 # UX Design
 
 In Pawcation I have tried to build a very user friendly app,that guides the user via buttons and forms to perform the actions they want to perform on the platform in order to book, update, delete and review stays for their dogs.The app is easy to navigate and in order to make every action count, the user  will get confirmation every time an action is performed letting them know if it's successfull or if an error occured. They will also receive details on how to fix such errors to proceed. The design picked here is minimal, the main image is a cartoonish drawing that most people loving animals will enjoy and that makes the scope of the app clear even before reading. I have then picked a bright yellow for the nav bar and the footer to give a bit of color to the page and also match the hotel image.
+
+## Navigation 
+
+### Navigation Bar 
+The navigation bar is dynamic based on if the user is logged in or not. To make it convenient for logged in users to get back to their list of bookings (which is the main thing a logged in user wants to do) the `Pawcation` site name link changes after login to always give the user an easy way to get back to the bookings page. Users that haven't logged in would be redirected to the home or welcome page instead. 
+
+### Navigating to and from forms 
+Each main page has a similar structure. Bookings, Reviews, and Pets all show lists and have a button which takes users to a form to create a new booking, review, or pet. Users are then able to either submit the form or go back to where they came from via a `Cancel` button that is present on every from. This means that users will find it easy to use the various different parts of the app as they all look and behave in a consistent way. 
+A similar pattern is present for editing existing content. All content (booking, review, pet) shown in the lists also contains links to either edit or delete the content. Again, users will be directed to a form (or deletion screen) based on their action from which they can complete the action or return. 
+
 
 ## Wireframes 
 Wireframes for the project were created using Figma and can be viewed on Figma [here](https://www.figma.com/file/G1KsEzPmiHHn6TrtWUEKh2/Pawcation-Wireframes?type=design&node-id=4%3A376&mode=design&t=t87crDcdStwRB99v-1)
