@@ -1,6 +1,6 @@
 # Pawcation
 
-Pawcation is a website addressed to dog owners offering hotel services for dogs. Having a dog is wonderful but we all know how hard it can be, at times,  to find a safe place for our furry friends when we are not around.Enters Pawcation, a small business that offer safe stays so that our dogs are treated well until we get back. 
+Pawcation is a website addressed to dog owners offering hotel services for dogs, 24/7. Having a dog is wonderful but we all know how hard it can be, at times,  to find a safe place for our furry friends when we are not around.Enters Pawcation, a small business that offer safe stays so that our dogs are treated well until we get back. 
 
 ![Pawcation on multiple devices](static/assets/images/Pawcation-responsive.png)
 
@@ -431,10 +431,12 @@ Second Booking: 16.07.2023 -> 23.07.2023
 
 
 ## Validators:
- * [html](https://validator.w3.org/#validate_by_input) testing: I have tested html and the validator returned no error: 
+ * [html](https://validator.w3.org/#validate_by_input) testing: I have tested html and the validator returned no errors: 
 ![html validator returning no errors](static/assets/images/html-validator-pawcation.png)
 
- * [css](https://jigsaw.w3.org/css-validator/) testing
+ * [css](https://jigsaw.w3.org/css-validator/) testing: I have tested css and the validator returned no errors:
+ ![css validator returning no errors](static/assets/images/css-validator-pawcation.png)
+
  * [python](https://pep8ci.herokuapp.com) testing
  * lighthouse testing: I have tested pawcation with lighthouse both for app and mobile. Result is here visible: ![lighthouse score for pawcation both mobile and desktop](static/assets/images/lighthouse-pawcation.png)
 
@@ -462,4 +464,9 @@ To clone this repository:
 3. Use git to clone the copied link: `git clone LINK`. 
 
 ___
-# References
+# References & Credits
+* The homepage image has been taken from google images.
+* The placeholder dog image has been taken from [Pixabay.com](https://pixabay.com/illustrations/dog-puppy-cute-cartoon-animal-3431913/).
+* The paw icon in the footer has been taken from [Font Awesome](https://fontawesome.com/).
+* In order to resolve some issues I encountered during development I have relied on online tutorials and stack overflow. I have left precise comments in the code specifying where some lines come from or have been adapted from to address my needs. 
+* The readme structure has been taken from code institute material.
