@@ -95,21 +95,40 @@ Following CRUD methodology, pets are considered an item to be created, viewed, u
 
 __Bookings__: 
 
-The booking page, for the logged in user, represents the new homepage. That's where the user is taken as soon as they successfully register or successfully log in. The user will at first see all their bookings: if they have some already booked or if they have had a stay in the past, it will show here. In the bookings page they will have the option to book a new stay by clicking the "new booking" button. As in pawcation a pre-visit is mandatory to a longer stay, the user needs now to select what king of booking they want to proceed with. Descriptions of pre-visit and full bookings are provided in order to guide the user. 
+The booking page, once the user is logged in, represents the main page or homepage. In the bookings page the user will at first see all their bookings (past and future) for all their pets but they will have also the option to book a new stay for the future by clicking the "new booking" button. As in pawcation a pre-visit is mandatory to a longer stay, the user needs now to select what kind of booking they want to proceed with. Descriptions of pre-visit and full bookings are provided in order to guide the user. 
 
 ![bookings list and option to select booking type](static/assets/images/bookings-lists-booking-type.png)
 
-When the user has picked the type of booking, they will be taken to the relevant form. The new-previsit form has just two mandatory fields: 
+When the user has picked the type of booking, they will be taken to the relevant form. 
+* The new-previsit form has just two mandatory fields: start date and pet. There is no need for a end-date here as the pre-visit lasts only one hour. If there is enough capacity for the selected date and the pet has never had a stay before,when the user clicks submit they will be taken back to the bookings list where the new booking will show. Pawcation has a limited capacity of just 2 pets, if there is no capacity a message will be shown to the user asking them to select a different date. An error message will be as well shown if the pet the user is booking a pre-visit for has already had one. In such case they are entitled only to full bookings and the user will be guided accordingly. 
+* The new full booking form has the same field as the pre-visit and an additional field for the end date. Stays at pawcation can be booked for a minimum of 1 hour and a maximum of 30 days, stays can also be booked only for future dates. Relevant messages will be showns to the user if they select a stay shorter than 1 hour or longer than 30 days. When the user clicks on submit, if there is enough capacity for the dates selected, they will be taken back to the bookings main page where the new bookings will be visible. If there is  no capacity they will be shown an error message asking to select different dates. 
+
 ![new previsit and new fullbooking forms](static/assets/images/new-previsit-fullbooking.png)
+
+CRUD methodology has been followed for bookings as well. Bookings can be created, viewed, edited and deleted. The user that has created a booking can manage it following the instruction on screen. The edit button present in each list item will take the user to the update form. The delete button will take them to the deletion message. 
 ![update previsit and update fullbooking](static/assets/images/update-previsit-fullbooking.png)
 ![delete bookings](static/assets/images/delete-booking.png)
 
-__Reviews__: ![reviews list, add review](static/assets/images/reviews-list-and-add.png)
+__Reviews__: 
+
+The reviews page takes the user to their personal list of reviews. The reviews in the MVP are just a score (1 to 5 ) left by the user only when the stay has ended. As per pets and bookings the user can here add a new review using the  "new review" button. The form that they are taken to when clicking the button presents just two fields: score (a number from 1 to 5) and booking (dropdown showing only the bookings that have been completed for that user). When the user selects the score, if the imput is not a number 1-5 they will see and error message informing them that the only possible answer is a number 1-5.When they submit their rating they are then taken back to the reviews page where the new review will be dispayed along with a message informing them of the action succesully completed. 
+
+![reviews list, add review](static/assets/images/reviews-list-and-add.png)
+
+Again following the CRUD methodology reviews can be updated and deleted. The process is the same as the one described for pets and bookings. The list item show the edit and the delete button. The edit button taked the user to the update review form and the delete button to the deletion message. Once the action has been successfully performed the user can see a "action successfull" message. 
 ![update and delete reviews](static/assets/images/update-delete-reviews.png)
 
-__Other users reviews__: ![other users reviews](static/assets/images/Other-users-reviews.png)
+__Other users reviews__: 
 
-__Sign out__: ![sign out message and successfull signed out](static/assets/images/sign-out-pawcation.png)
+In this page the user can see other people reviews but their own. As pawcation is a safe platform, in this case the user will not be able to edit or delete the reviews shown here as they have been left by other users. The reviews show the score, the name of the pet, the date and time and the name of the user that left them
+
+![other users reviews](static/assets/images/Other-users-reviews.png)
+
+__Sign out__: 
+
+The log out option in the nav bar logs out the user. Before doing so a message asking if they are sure they want to log out is displayed to them to make sure they didn't click it by mistake. Once the user has successfully been logged out, they are taken back to the homepage where they can see again the option to register or log in. The "successfully signed out" message is shown to them. 
+
+![sign out message and successfull signed out](static/assets/images/sign-out-pawcation.png)
 
 
 ___
