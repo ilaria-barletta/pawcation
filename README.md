@@ -47,7 +47,7 @@ In this project I have used the agile method, a link to the Github project and s
 
 ___
 # Features 
-__Homepage__: ![Welcome page and request to log in or register](static/assets/images/Pawcation-homepage.png)
+__Homepage__:
 
 This is the main page that the user sees before registering or logging in. 
 The content is centered and the style is clean and simple. 
@@ -58,32 +58,48 @@ A quick but clear in the scope message to the user informs them of what pawcatio
 The message contains a link that if clicked will show reviews left by other customers.
 There are then 2 buttons that let the user register if they are new or log in if they are known users. 
 
-__All reviews__: ![reviews page as reachable form home page](static/assets/images/all-reviews-list.png)
+![Welcome page and request to log in or register](static/assets/images/Pawcation-homepage.png)
 
-__Register__: ![Registration form and registration successfull message](static/assets/images/registration-pawcation.png)
+__All reviews__: 
 
-This is the first option the user has and can click on in order to provide their details to access the service. 
-When clicked the user will be taken to a form page where some details will be requested. 
-In particular they will be asked to provide username and password. An email can be also provided but that's optional. 
-The password needs to be selected once and then typed it again for confirmation. 
+The reviews screen accessible form the homepage shows to the user all the reviews left on pawcation by other users. The user can only see the reviews but not modify or delete them as they were left by other logged in users. The score system is simple in the MVP. The score can be only a number from 1 to 5 and it is showns in stars format. The review presents the name of the pet, the date and time of the stay and the name of the user that left it. 
 
-__Successfully registered__:
+![reviews page as reachable form home page](static/assets/images/all-reviews-list.png)
 
-When the process is complete and the user selects register they are shown a screen where options are listed in the nav bar. 
-A pop up message saying "succesfully signed in" is showed to them  
+__Register & Successfully registered__: 
 
-__Log in__: ![log in form and log in successfull message](static/assets/images/login-pawcation.png)
+From the homepage new users have the option to register to pawcation. The register button, if clicked, takes the user to a registration form where some details are requested. 
+In particular they will be asked to provide username and password. An email can also be provided but that's optional. 
+The password needs to be selected once and then typed in again for confirmation. If the password doesn't match an error message will inform the user of the same so they can try again. When the user, after filling in the form, clicks on register they are taken to the bookings page. A message will inform them of the successfull registration. At this stage, being now the user a registered user, the nav bar will show more options: bookings, pets, reviews, other users reviews and log out will all display so to be easily accessible to the user that will now be able to easily navigate pawcation. 
 
-Alternatively the user that already has an accound can just log in into it selecting the relevant button. 
-In such case they will be asked to type in their username and password and both fields are mandatory. 
+![Registration form and registration successfull message](static/assets/images/registration-pawcation.png)
 
-__Succesfully logged in__: 
 
-__Pets__: ![pets list and add new pet form](static/assets/images/pet-create-view.png)
+__Log in & Successfully logged in__: 
+
+Alternatively the user that already has an account can just log in into it selecting the relevant button from the homepage. 
+In such case they will be asked to type in their username and password and both fields are mandatory. When the user, after filling the form, clicks on register they are taken to the bookings page. A message will inform them of the fact that they have successfully signed in. From the booking page the user can see all the bookings (past and pending) they have, the time and the pet they are related to. Being the user now logged in, the nav bar will show more options: bookings, pets, reviews, other users reviews and log out will all display so to be easily accessible to the user that will now be able to easily navigate pawcation. 
+
+![log in form and log in successfull message](static/assets/images/login-pawcation.png)
+
+
+__Pets__: 
+
+The pets page reachable from the nav bar shows an overview of all the pets the logged in user has registered on the platform. The page contains as well a button to register a pet. If clicked, the button will take the user to the "register your pet form". The form contains mandatory fields (Name, Age, Breed, Allergies, Notes) and the option to add a picture of the dog the user is registering. If the picture is not provided a placeholder will show in the pets list whenever the dog gets registered. In regards to pets, the user can register dogs not older than 12. If the age selected is a number bigger than 12 they will get a message showing that 12 is the max accepted value. This is a business decision. Being pawcation a new business with not much experience, older dogs are not accepted as they would take with them more health realated issues that pawcation can't safely handle as per now. When the user, after filling the form,clicks on submit, the pets list will be shown again with the new dog card visible. The user will get confirmation of the successfull registration as well. 
+
+![pets list and add new pet form](static/assets/images/pet-create-view.png)
+Following CRUD methodology, pets are considered an item to be created, viewed, updated and deleted. Each dog card in pawcation presents the  edit and delete option. Edit takes the user back to the form with the field already showing the previous data and ready to be modified. When the user has edited the content according to their needs and clicks submit, the lists of pets is shown again but the pet will now show the updated data and the "successfull update" message will show. In the same way the user has the option to delete the dog they have registered. A deletion message will show asking if they are sure about the action and when confirmed the "successfull deletion" message will be shown. 
+
 ![pets update and delete](static/assets/images/pet-update-delete.png)
 
 
-__Bookings__: ![bookings list and option to select booking type](static/assets/images/bookings-lists-booking-type.png)
+__Bookings__: 
+
+The booking page, for the logged in user, represents the new homepage. That's where the user is taken as soon as they successfully register or successfully log in. The user will at first see all their bookings: if they have some already booked or if they have had a stay in the past, it will show here. In the bookings page they will have the option to book a new stay by clicking the "new booking" button. As in pawcation a pre-visit is mandatory to a longer stay, the user needs now to select what king of booking they want to proceed with. Descriptions of pre-visit and full bookings are provided in order to guide the user. 
+
+![bookings list and option to select booking type](static/assets/images/bookings-lists-booking-type.png)
+
+When the user has picked the type of booking, they will be taken to the relevant form. The new-previsit form has just two mandatory fields: 
 ![new previsit and new fullbooking forms](static/assets/images/new-previsit-fullbooking.png)
 ![update previsit and update fullbooking](static/assets/images/update-previsit-fullbooking.png)
 ![delete bookings](static/assets/images/delete-booking.png)
