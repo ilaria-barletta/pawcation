@@ -337,7 +337,7 @@ I have tested the app thoroughly and you can see the outcome of the manual testi
 | Add a review:Your review has been added successfully. | Pass        |
 | Update a reviews: Your review has been updated successfully| Pass        |
 | Delete a review:Your review has been deleted successfully | Pass        |
-| If user tries to review a visit already reviewed: You have already reviewed this booking and cannot review it again. If you would like, you can edit your existing review  | Pass        |
+| If user tries to review a visit already reviewed, the following message shows: You have already reviewed this booking and cannot review it again. If you would like, you can edit your existing review  | Pass        |
 | Log out shows: You have signed out.| Pass        |
 
 
@@ -431,10 +431,12 @@ Second Booking: 16.07.2023 -> 23.07.2023
 
 
 ## Validators:
- * [html](https://validator.w3.org/#validate_by_input) testing
+ * [html](https://validator.w3.org/#validate_by_input) testing: I have tested html and the validator returned no error: 
+![html validator returning no errors](static/assets/images/html-validator-pawcation.png)
+
  * [css](https://jigsaw.w3.org/css-validator/) testing
  * [python](https://pep8ci.herokuapp.com) testing
- * lighthouse testing
+ * lighthouse testing: I have tested pawcation with lighthouse both for app and mobile. Result is here visible: ![lighthouse score for pawcation both mobile and desktop](static/assets/images/lighthouse-pawcation.png)
 
 
 # Deployment, Forking and Cloning 
