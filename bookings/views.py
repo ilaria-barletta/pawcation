@@ -1,6 +1,7 @@
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 from django.http import Http404
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
 from django.db.models import Q
 from .models import Pet, Booking, Review
@@ -15,9 +16,11 @@ class Home(generic.TemplateView):
     template_name = "home.html"
 
 
-class PetList(generic.ListView):
+class PetList(LoginRequiredMixin, generic.ListView):
     model = Pet
     template_name = "pets.html"
+    # Send users to home page if they try and access a logged in page
+    login_url = "/"
 
     # Only show Pets for the current user
     # and not every pet in the database
@@ -25,9 +28,11 @@ class PetList(generic.ListView):
         return Pet.objects.filter(owner=self.request.user)
 
 
-class BookingList(generic.ListView):
+class BookingList(LoginRequiredMixin, generic.ListView):
     model = Booking
     template_name = "bookings.html"
+    # Send users to home page if they try and access a logged in page
+    login_url = "/"
 
     # Only show Bookings for the current user
     # and not every booking in the database
@@ -35,9 +40,11 @@ class BookingList(generic.ListView):
         return Booking.objects.filter(owner=self.request.user).order_by("-start_date")
 
 
-class ReviewList(generic.ListView):
+class ReviewList(LoginRequiredMixin, generic.ListView):
     model = Review
     template_name = "reviews.html"
+    # Send users to home page if they try and access a logged in page
+    login_url = "/"
 
     # Only show Reviews for the current user
     # and not every review in the database
@@ -80,12 +87,14 @@ class OtherUsersReviewList(generic.ListView):
         return data
 
 
-class NewReview(SuccessMessageMixin, generic.edit.CreateView):
+class NewReview(LoginRequiredMixin, SuccessMessageMixin, generic.edit.CreateView):
     model = Review
     template_name = "create_edit_review.html"
     form_class = ReviewForm
     success_url = "/reviews"
     success_message = "Your review has been added successfully."
+    # Send users to home page if they try and access a logged in page
+    login_url = "/"
 
     # Taken from here: https://stackoverflow.com/questions/45847561/how-do-i-filter-values-in-django-createview-updateview
     # This allows us to filter the list of bookings for the review to show
@@ -110,12 +119,14 @@ class NewReview(SuccessMessageMixin, generic.edit.CreateView):
         return data
 
 
-class UpdateReview(SuccessMessageMixin, generic.edit.UpdateView):
+class UpdateReview(LoginRequiredMixin, SuccessMessageMixin, generic.edit.UpdateView):
     model = Review
     template_name = "create_edit_review.html"
     form_class = ReviewForm
     success_url = "/reviews"
     success_message = "Your review has been updated successfully"
+    # Send users to home page if they try and access a logged in page
+    login_url = "/"
 
     # Taken from here: https://stackoverflow.com/questions/45847561/how-do-i-filter-values-in-django-createview-updateview
     def get_form_kwargs(self):
@@ -138,12 +149,14 @@ class UpdateReview(SuccessMessageMixin, generic.edit.UpdateView):
         return data
 
 
-class DeleteReview(SuccessMessageMixin, generic.edit.DeleteView):
+class DeleteReview(LoginRequiredMixin, SuccessMessageMixin, generic.edit.DeleteView):
     model = Review
     template_name = "delete_review.html"
     success_url = "/reviews"
     context_object_name = "review"
     success_message = "Your review has been deleted successfully"
+    # Send users to home page if they try and access a logged in page
+    login_url = "/"
 
     def get_object(self, *args, **kwargs):
         obj = super(DeleteReview, self).get_object(*args, **kwargs)
@@ -159,12 +172,14 @@ class DeleteReview(SuccessMessageMixin, generic.edit.DeleteView):
         return super(DeleteReview, self).delete(request, *args, **kwargs)
 
 
-class NewPet(SuccessMessageMixin, generic.edit.CreateView):
+class NewPet(LoginRequiredMixin, SuccessMessageMixin, generic.edit.CreateView):
     model = Pet
     template_name = "create_edit_pet.html"
     form_class = PetForm
     success_url = "/pets"
     success_message = "Your pet %(name)s has been added successfully."
+    # Send users to home page if they try and access a logged in page
+    login_url = "/"
 
     def form_valid(self, form):
         user = self.request.user
@@ -178,12 +193,14 @@ class NewPet(SuccessMessageMixin, generic.edit.CreateView):
         return data
 
 
-class UpdatePet(SuccessMessageMixin, generic.edit.UpdateView):
+class UpdatePet(LoginRequiredMixin, SuccessMessageMixin, generic.edit.UpdateView):
     model = Pet
     template_name = "create_edit_pet.html"
     form_class = PetForm
     success_url = "/pets"
     success_message = "Your pet %(name)s has been updated successfully."
+    # Send users to home page if they try and access a logged in page
+    login_url = "/"
 
     def get_object(self, *args, **kwargs):
         obj = super(UpdatePet, self).get_object(*args, **kwargs)
@@ -198,12 +215,14 @@ class UpdatePet(SuccessMessageMixin, generic.edit.UpdateView):
         return data
 
 
-class DeletePet(SuccessMessageMixin, generic.edit.DeleteView):
+class DeletePet(LoginRequiredMixin, SuccessMessageMixin, generic.edit.DeleteView):
     model = Pet
     template_name = "delete_pet.html"
     success_url = "/pets"
     context_object_name = "pet"
     success_message = "Your pet has been deleted successfully."
+    # Send users to home page if they try and access a logged in page
+    login_url = "/"
 
     def get_object(self, *args, **kwargs):
         obj = super(DeletePet, self).get_object(*args, **kwargs)
@@ -216,12 +235,14 @@ class DeletePet(SuccessMessageMixin, generic.edit.DeleteView):
         return super(DeletePet, self).delete(request, *args, **kwargs)
 
 
-class DeleteBooking(SuccessMessageMixin, generic.edit.DeleteView):
+class DeleteBooking(LoginRequiredMixin, SuccessMessageMixin, generic.edit.DeleteView):
     model = Booking
     template_name = "delete_booking.html"
     success_url = "/bookings"
     context_object_name = "booking"
     success_message = "Your booking has been deleted successfully."
+    # Send users to home page if they try and access a logged in page
+    login_url = "/"
 
     def get_object(self, *args, **kwargs):
         obj = super(DeleteBooking, self).get_object(*args, **kwargs)
@@ -234,16 +255,20 @@ class DeleteBooking(SuccessMessageMixin, generic.edit.DeleteView):
         return super(DeleteBooking, self).delete(request, *args, **kwargs)
 
 
-class StartNewBooking(generic.TemplateView):
+class StartNewBooking(LoginRequiredMixin, generic.TemplateView):
     template_name = "start_new_booking.html"
+    # Send users to home page if they try and access a logged in page
+    login_url = "/"
 
 
-class NewPreVisit(SuccessMessageMixin, generic.edit.CreateView):
+class NewPreVisit(LoginRequiredMixin, SuccessMessageMixin, generic.edit.CreateView):
     model = Booking
     template_name = "create_edit_booking.html"
     form_class = PreVisitBookingForm
     success_url = "/bookings"
     success_message = "Your pre-visit has been added successfully."
+    # Send users to home page if they try and access a logged in page
+    login_url = "/"
 
     # This allows us to filter the list of pet for the booking to show
     # the current users pets
@@ -269,12 +294,14 @@ class NewPreVisit(SuccessMessageMixin, generic.edit.CreateView):
         return super(NewPreVisit, self).form_valid(form)
 
 
-class UpdatePreVisit(SuccessMessageMixin, generic.edit.UpdateView):
+class UpdatePreVisit(LoginRequiredMixin, SuccessMessageMixin, generic.edit.UpdateView):
     model = Booking
     template_name = "create_edit_booking.html"
     form_class = PreVisitBookingForm
     success_url = "/bookings"
     success_message = "Your pre-visit has been updated successfully."
+    # Send users to home page if they try and access a logged in page
+    login_url = "/"
 
     def get_form_kwargs(self):
         kwargs = super(UpdatePreVisit, self).get_form_kwargs()
@@ -299,12 +326,14 @@ class UpdatePreVisit(SuccessMessageMixin, generic.edit.UpdateView):
         return super(UpdatePreVisit, self).form_valid(form)
 
 
-class NewFullBooking(SuccessMessageMixin, generic.edit.CreateView):
+class NewFullBooking(LoginRequiredMixin, SuccessMessageMixin, generic.edit.CreateView):
     model = Booking
     template_name = "create_edit_booking.html"
     form_class = FullVisitBookingForm
     success_url = "/bookings"
     success_message = "Your full booking has been added successfully."
+    # Send users to home page if they try and access a logged in page
+    login_url = "/"
 
     # This allows us to filter the list of pet for the booking to show
     # the current users pets
@@ -328,12 +357,16 @@ class NewFullBooking(SuccessMessageMixin, generic.edit.CreateView):
         return super(NewFullBooking, self).form_valid(form)
 
 
-class UpdateFullBooking(SuccessMessageMixin, generic.edit.UpdateView):
+class UpdateFullBooking(
+    LoginRequiredMixin, SuccessMessageMixin, generic.edit.UpdateView
+):
     model = Booking
     template_name = "create_edit_booking.html"
     form_class = FullVisitBookingForm
     success_url = "/bookings"
     success_message = "Your full booking has been updated successfully."
+    # Send users to home page if they try and access a logged in page
+    login_url = "/"
 
     def get_form_kwargs(self):
         kwargs = super(UpdateFullBooking, self).get_form_kwargs()
