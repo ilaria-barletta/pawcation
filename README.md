@@ -2,7 +2,7 @@
 
 Pawcation is a website addressed to dog owners offering hotel services for dogs, 24/7. Having a dog is wonderful but we all know how hard it can be, at times,  to find a safe place for our furry friends when we are not around.Enters Pawcation, a small business that offer safe stays so that our dogs are treated well until we get back. 
 
-![Pawcation on multiple devices](static/assets/images/Pawcation-responsive.png)
+![Pawcation on multiple devices](readme-images/Pawcation-responsive.png)
 
 The live link to my project is here: https://pawcation.herokuapp.com/
 ___
@@ -59,13 +59,13 @@ A quick but clear message to the user informs them of what pawcation is.
 The message contains a link that if clicked will show reviews left by other customers.
 There are then 2 buttons that let the user register if they are new or log in if they are known users. 
 
-![Welcome page and request to log in or register](static/assets/images/Pawcation-homepage.png)
+![Welcome page and request to log in or register](readme-images/Pawcation-homepage.png)
 
 ## All reviews: 
 
 The reviews screen accessible form the homepage shows the user all the reviews left on pawcation by all users. The user can only see the reviews but not modify or delete them as they were left by other logged in users. The score system is simple in the MVP. The score can be only a number from 1 to 5 and it is showns in stars format. The review presents the name of the pet, the date and time of the stay and the name of the user that left it. 
 
-![reviews page as reachable form home page](static/assets/images/all-reviews-list.png)
+![reviews page as reachable form home page](readme-images/all-reviews-list.png)
 
 ## Register & Successfully registered: 
 
@@ -73,7 +73,7 @@ From the homepage new users have the option to register to pawcation. The regist
 In particular they will be asked to provide a username and password. An email can also be provided but that's optional. 
 The password needs to be selected once and then typed in again for confirmation. If the password doesn't match an error message will inform the user of the same so they can try again. When the user, after filling in the form, clicks on register they are taken to the bookings page. A message will inform them of the successful registration. At this stage, because the user has registered and logged in, the nav bar will show more options: bookings, pets, reviews, other users reviews and log out will all display so as to be easily accessible to the user that will now be able to easily navigate Pawcation. 
 
-![Registration form and registration successful message](static/assets/images/registration-pawcation.png)
+![Registration form and registration successful message](readme-images/registration-pawcation.png)
 
 
 ## Log in & Successfully logged in: 
@@ -81,17 +81,17 @@ The password needs to be selected once and then typed in again for confirmation.
 Alternatively the user that already has an account can just log in into it selecting the relevant button from the homepage. 
 In such case they will be asked to type in their username and password and both fields are mandatory. When the user, after filling the form, clicks on login they are taken to the bookings page. A message will inform them of the fact that they have successfully signed in. From the booking page the user can see all the bookings (past and pending) they have, the time and the pet they are related to. Because the user has now logged in, the nav bar will show more options: bookings, pets, reviews, other users reviews and log out will all display so as to be easily accessible to the user that will now be able to easily navigate Pawcation. 
 
-![log in form and log in successfull message](static/assets/images/login-pawcation.png)
+![log in form and log in successfull message](readme-images/login-pawcation.png)
 
 
 ## Pets: 
 
 The pets page reachable from the nav bar shows an overview of all the pets the logged in user has registered on the platform. The page also contains a button to register a pet. If clicked, the button will take the user to the "register your pet form". The form contains mandatory fields (Name, Age, Breed, Allergies, Notes) and the option to add a picture of the dog the user is registering. If the picture is not provided a placeholder will show in the pets list whenever the dog gets registered. In regards to pets, the user can register dogs not older than 12. If the age selected is a number bigger than 12 they will get a message showing that 12 is the max accepted value. This is a business decision. Because Pawcation is a new business with not much experience, older dogs are not accepted as they would take with them more health realated issues that pawcation can't safely handle as per now. When the user, after filling the form, clicks on submit, the pets list will be shown again with the new dog card visible. The user will get confirmation of the successfull registration as well. 
 
-![pets list and add new pet form](static/assets/images/pet-create-view.png)
+![pets list and add new pet form](readme-images/pet-create-view.png)
 Following CRUD methodology, pets are considered an item to be created, viewed, updated and deleted. Each dog card in pawcation presents the  edit and delete option. Edit takes the user back to the form with the fields already showing the previous data and ready to be modified. When the user has edited the content according to their needs and clicks submit, the lists of pets is shown again but the pet will now show the updated data and the "successfull update" message will show. In the same way the user has the option to delete the dog they have registered. A deletion message will show asking if they are sure about the action and when confirmed the "successfull deletion" message will be shown as well as the updated list of pets without the pet that has just been deleted. 
 
-![pets update and delete](static/assets/images/pet-update-delete.png)
+![pets update and delete](readme-images/pet-update-delete.png)
 
 
 ## Bookings: 
@@ -103,39 +103,39 @@ There are two kinds of bookings available on the platform: `pre-visit` and `full
 
 We allow the user to choose the type of booking when they click the `new booking` button and we explain the difference between a pre-visit and full booking to them on the booking type selection page. 
 
-![bookings list and option to select booking type](static/assets/images/bookings-lists-booking-type.png)
+![bookings list and option to select booking type](readme-images/bookings-lists-booking-type.png)
 
 When the user has picked the type of booking, they will be taken to the relevant form. 
 * The new-previsit form has just two mandatory fields: start date and pet. There is no need for a end-date here as the pre-visit lasts only one hour. If there is enough capacity for the selected date and the pet has never had a stay before, when the user clicks submit they will be taken back to the bookings list where the new booking will show. Pawcation has a limited capacity of just 2 pets, if there is no capacity a message will be shown to the user asking them to select a different date. An error message will be as well shown if the pet the user is booking a pre-visit for has already had one. In such case they are entitled only to full bookings and the user will be guided accordingly. 
 * The new full booking form has the same field as the pre-visit and an additional field for the end date. Stays at pawcation can be booked for a minimum of 1 hour and a maximum of 30 days, stays can also be booked only for future dates. Relevant messages will be showns to the user if they select a stay shorter than 1 hour or longer than 30 days. When the user clicks on submit, if there is enough capacity for the dates selected, they will be taken back to the bookings main page where the new bookings will be visible. If there is  no capacity they will be shown an error message asking to select different dates. 
 
-![new previsit and new fullbooking forms](static/assets/images/new-previsit-fullbooking.png)
+![new previsit and new fullbooking forms](readme-images/new-previsit-fullbooking.png)
 
 CRUD methodology has been followed for bookings as well. Bookings can be created, viewed, edited and deleted. However, only bookings that have not ended can be modified. Any bookings that have ended will not allow the option to edit or delete. The user that has created a booking can manage it following the instruction on screen. The edit button present in each list item will take the user to the update form. The delete button will take them to the deletion message. 
-![update previsit and update fullbooking](static/assets/images/update-previsit-fullbooking.png)
-![delete bookings](static/assets/images/delete-booking.png)
+![update previsit and update fullbooking](readme-images/update-previsit-fullbooking.png)
+![delete bookings](readme-images/delete-booking.png)
 
 ## Reviews: 
 
 The reviews page takes the user to their personal list of reviews. The reviews in the MVP are just a score (1 to 5) left by the user only when the stay has ended. As per pets and bookings the user can here add a new review using the "new review" button. The form that they are taken to when clicking the button presents just two fields: score (a number from 1 to 5) and booking (dropdown showing only the bookings that have been completed for that user). When the user selects the score, if the imput is not a number 1-5 they will see and error message informing them that the only possible answer is a number 1-5. When they submit their rating they are then taken back to the reviews page where the new review will be dispayed along with a message informing them of the action succesully completed. 
 
-![reviews list, add review](static/assets/images/reviews-list-and-add.png)
-![review score limit validation](static/assets/images/review-score-limit.png)
+![reviews list, add review](readme-images/reviews-list-and-add.png)
+![review score limit validation](readme-images/review-score-limit.png)
 
 Again following the CRUD methodology reviews can be updated and deleted. The process is the same as the one described for pets and bookings. The list item show the edit and the delete button. The edit button taked the user to the update review form and the delete button to the deletion message. Once the action has been successfully performed the user can see an "action successfull" message. 
-![update and delete reviews](static/assets/images/update-delete-reviews.png)
+![update and delete reviews](readme-images/update-delete-reviews.png)
 
 ## Other users reviews: 
 
 In this page the user can see all the reviews left by other users of the site, but reviews that they left themselves will not be included here. As pawcation is a safe platform, in this case the user will not be able to edit or delete the reviews shown here as they have been left by other users. The reviews show the score, the name of the pet, the date and time and the name of the user that left them. This page is useful for users to know what kind of experience other users have had with the platform.
 
-![other users reviews](static/assets/images/Other-users-reviews.png)
+![other users reviews](readme-images/Other-users-reviews.png)
 
 ## Sign out: 
 
 The log out option in the nav bar logs out the user. Before doing so a message asking if they are sure they want to log out is displayed to them to make sure they didn't click it by mistake. Once the user has successfully been logged out, they are taken back to the homepage where they can see again the option to register or log in. The "successfully signed out" message is shown to them. 
 
-![sign out message and successfull signed out](static/assets/images/sign-out-pawcation.png)
+![sign out message and successfull signed out](readme-images/sign-out-pawcation.png)
 
 
 ___
@@ -474,13 +474,14 @@ Second Booking: 16.07.2023 -> 23.07.2023
 
 ## Validators:
  * [html](https://validator.w3.org/#validate_by_input) testing: I have tested html and the validator returned no errors: 
-![html validator returning no errors](static/assets/images/html-validator-pawcation.png)
+![html validator returning no errors](readme-images/html-validator-pawcation.png)
 
  * [css](https://jigsaw.w3.org/css-validator/) testing: I have tested css and the validator returned no errors:
- ![css validator returning no errors](static/assets/images/css-validator-pawcation.png)
+ ![css validator returning no errors](readme-images/css-validator-pawcation.png)
 
  * [python](https://pep8ci.herokuapp.com) testing
- * lighthouse testing: I have tested pawcation with lighthouse both for app and mobile. Result is here visible: ![lighthouse score for pawcation both mobile and desktop](static/assets/images/lighthouse-pawcation.png)
+  ![python example validator returning no errors](readme-images/python-validator.png)
+ * lighthouse testing: I have tested pawcation with lighthouse both for app and mobile. Result is here visible: ![lighthouse score for pawcation both mobile and desktop](readme-images/lighthouse-pawcation.png)
 
 
 # Deployment, Forking and Cloning 

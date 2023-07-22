@@ -2,21 +2,27 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 from django.http import Http404
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views import generic
+from django.views.generic import TemplateView, ListView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.db.models import Q
 from .models import Pet, Booking, Review
-from .forms import ReviewForm, PetForm, PreVisitBookingForm, FullVisitBookingForm
+from .forms import (
+    ReviewForm,
+    PetForm,
+    PreVisitBookingForm,
+    FullVisitBookingForm,
+)
 from datetime import timedelta
 
 
 # When users come to the site we want to show the home page
 # We are using TemplateView so we can just render
 # a template without any model
-class Home(generic.TemplateView):
+class Home(TemplateView):
     template_name = "home.html"
 
 
-class PetList(LoginRequiredMixin, generic.ListView):
+class PetList(LoginRequiredMixin, ListView):
     model = Pet
     template_name = "pets.html"
     # Send users to home page if they try and access a logged in page
@@ -28,19 +34,19 @@ class PetList(LoginRequiredMixin, generic.ListView):
         return Pet.objects.filter(owner=self.request.user)
 
 
-class BookingList(LoginRequiredMixin, generic.ListView):
+class BookingList(LoginRequiredMixin, ListView):
     model = Booking
     template_name = "bookings.html"
     # Send users to home page if they try and access a logged in page
     login_url = "/"
 
-    # Only show Bookings for the current user
-    # and not every booking in the database
     def get_queryset(self):
-        return Booking.objects.filter(owner=self.request.user).order_by("-start_date")
+        return Booking.objects.filter(owner=self.request.user).order_by(
+            "-start_date"
+        )  # Only show Bookings for the current user
 
 
-class ReviewList(LoginRequiredMixin, generic.ListView):
+class ReviewList(LoginRequiredMixin, ListView):
     model = Review
     template_name = "reviews.html"
     # Send users to home page if they try and access a logged in page
@@ -62,7 +68,7 @@ class ReviewList(LoginRequiredMixin, generic.ListView):
         return data
 
 
-class OtherUsersReviewList(generic.ListView):
+class OtherUsersReviewList(ListView):
     model = Review
     template_name = "reviews.html"
 
@@ -81,13 +87,15 @@ class OtherUsersReviewList(generic.ListView):
         # Only let logged in users leave reviews
         data["can_create_reviews"] = False
         data["page_title"] = (
-            "All Reviews" if self.request.user.is_anonymous else "Other Users Reviews"
+            "All Reviews"
+            if self.request.user.is_anonymous
+            else "Other Users Reviews"  # Change title depending on auth
         )
 
         return data
 
 
-class NewReview(LoginRequiredMixin, SuccessMessageMixin, generic.edit.CreateView):
+class NewReview(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Review
     template_name = "create_edit_review.html"
     form_class = ReviewForm
@@ -96,7 +104,7 @@ class NewReview(LoginRequiredMixin, SuccessMessageMixin, generic.edit.CreateView
     # Send users to home page if they try and access a logged in page
     login_url = "/"
 
-    # Taken from here: https://stackoverflow.com/questions/45847561/how-do-i-filter-values-in-django-createview-updateview
+    # Taken from here: https://tinyurl.com/3bbxhb9n
     # This allows us to filter the list of bookings for the review to show
     # the current users bookings
     def get_form_kwargs(self):
@@ -105,7 +113,7 @@ class NewReview(LoginRequiredMixin, SuccessMessageMixin, generic.edit.CreateView
         kwargs["is_updating"] = False
         return kwargs
 
-    # Taken from here: https://stackoverflow.com/questions/21652073/django-how-to-set-a-hidden-field-on-a-generic-create-view
+    # Taken from here: https://tinyurl.com/5xehfcxw
     # This sets the owner on the review model to the current user
     def form_valid(self, form):
         user = self.request.user
@@ -119,7 +127,7 @@ class NewReview(LoginRequiredMixin, SuccessMessageMixin, generic.edit.CreateView
         return data
 
 
-class UpdateReview(LoginRequiredMixin, SuccessMessageMixin, generic.edit.UpdateView):
+class UpdateReview(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Review
     template_name = "create_edit_review.html"
     form_class = ReviewForm
@@ -128,14 +136,14 @@ class UpdateReview(LoginRequiredMixin, SuccessMessageMixin, generic.edit.UpdateV
     # Send users to home page if they try and access a logged in page
     login_url = "/"
 
-    # Taken from here: https://stackoverflow.com/questions/45847561/how-do-i-filter-values-in-django-createview-updateview
+    # Taken from here: https://tinyurl.com/3bbxhb9n
     def get_form_kwargs(self):
         kwargs = super(UpdateReview, self).get_form_kwargs()
         kwargs["user"] = self.request.user
         kwargs["is_updating"] = True
         return kwargs
 
-    # Taken from here: https://stackoverflow.com/questions/25324948/django-generic-updateview-how-to-check-credential
+    # Taken from here: https://tinyurl.com/3fh5xcx3
     def get_object(self, *args, **kwargs):
         obj = super(UpdateReview, self).get_object(*args, **kwargs)
         if not obj.owner == self.request.user:
@@ -149,7 +157,7 @@ class UpdateReview(LoginRequiredMixin, SuccessMessageMixin, generic.edit.UpdateV
         return data
 
 
-class DeleteReview(LoginRequiredMixin, SuccessMessageMixin, generic.edit.DeleteView):
+class DeleteReview(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Review
     template_name = "delete_review.html"
     success_url = "/reviews"
@@ -164,15 +172,16 @@ class DeleteReview(LoginRequiredMixin, SuccessMessageMixin, generic.edit.DeleteV
             raise Http404
         return obj
 
-    # Taken from here: https://stackoverflow.com/questions/24822509/success-message-in-deleteview-not-shown
-    # DeleteView doesn't work the same way as Create and Update and we need to add this code
+    # Taken from here: https://tinyurl.com/5xyfmxm4
+    # DeleteView doesn't work the same way as
+    # Create and Update and we need to add this code
     # so the success message works
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, self.success_message)
         return super(DeleteReview, self).delete(request, *args, **kwargs)
 
 
-class NewPet(LoginRequiredMixin, SuccessMessageMixin, generic.edit.CreateView):
+class NewPet(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Pet
     template_name = "create_edit_pet.html"
     form_class = PetForm
@@ -193,7 +202,7 @@ class NewPet(LoginRequiredMixin, SuccessMessageMixin, generic.edit.CreateView):
         return data
 
 
-class UpdatePet(LoginRequiredMixin, SuccessMessageMixin, generic.edit.UpdateView):
+class UpdatePet(LoginRequiredMixin, SuccessMessageMixin, UpdateView):  # noqa
     model = Pet
     template_name = "create_edit_pet.html"
     form_class = PetForm
@@ -215,7 +224,7 @@ class UpdatePet(LoginRequiredMixin, SuccessMessageMixin, generic.edit.UpdateView
         return data
 
 
-class DeletePet(LoginRequiredMixin, SuccessMessageMixin, generic.edit.DeleteView):
+class DeletePet(LoginRequiredMixin, SuccessMessageMixin, DeleteView):  # noqa
     model = Pet
     template_name = "delete_pet.html"
     success_url = "/pets"
@@ -235,7 +244,7 @@ class DeletePet(LoginRequiredMixin, SuccessMessageMixin, generic.edit.DeleteView
         return super(DeletePet, self).delete(request, *args, **kwargs)
 
 
-class DeleteBooking(LoginRequiredMixin, SuccessMessageMixin, generic.edit.DeleteView):
+class DeleteBooking(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Booking
     template_name = "delete_booking.html"
     success_url = "/bookings"
@@ -255,13 +264,13 @@ class DeleteBooking(LoginRequiredMixin, SuccessMessageMixin, generic.edit.Delete
         return super(DeleteBooking, self).delete(request, *args, **kwargs)
 
 
-class StartNewBooking(LoginRequiredMixin, generic.TemplateView):
+class StartNewBooking(LoginRequiredMixin, TemplateView):
     template_name = "start_new_booking.html"
     # Send users to home page if they try and access a logged in page
     login_url = "/"
 
 
-class NewPreVisit(LoginRequiredMixin, SuccessMessageMixin, generic.edit.CreateView):
+class NewPreVisit(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Booking
     template_name = "create_edit_booking.html"
     form_class = PreVisitBookingForm
@@ -294,7 +303,7 @@ class NewPreVisit(LoginRequiredMixin, SuccessMessageMixin, generic.edit.CreateVi
         return super(NewPreVisit, self).form_valid(form)
 
 
-class UpdatePreVisit(LoginRequiredMixin, SuccessMessageMixin, generic.edit.UpdateView):
+class UpdatePreVisit(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Booking
     template_name = "create_edit_booking.html"
     form_class = PreVisitBookingForm
@@ -326,7 +335,7 @@ class UpdatePreVisit(LoginRequiredMixin, SuccessMessageMixin, generic.edit.Updat
         return super(UpdatePreVisit, self).form_valid(form)
 
 
-class NewFullBooking(LoginRequiredMixin, SuccessMessageMixin, generic.edit.CreateView):
+class NewFullBooking(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Booking
     template_name = "create_edit_booking.html"
     form_class = FullVisitBookingForm
@@ -357,9 +366,7 @@ class NewFullBooking(LoginRequiredMixin, SuccessMessageMixin, generic.edit.Creat
         return super(NewFullBooking, self).form_valid(form)
 
 
-class UpdateFullBooking(
-    LoginRequiredMixin, SuccessMessageMixin, generic.edit.UpdateView
-):
+class UpdateFullBooking(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Booking
     template_name = "create_edit_booking.html"
     form_class = FullVisitBookingForm

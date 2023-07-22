@@ -11,7 +11,7 @@ MAX_STAY_DURATION_DAYS = 30
 class ReviewForm(forms.ModelForm):
     is_updating = False
 
-    # Taken from here: https://stackoverflow.com/questions/45847561/how-do-i-filter-values-in-django-createview-updateview
+    # Taken from here: https://tinyurl.com/3bbxhb9n
     def __init__(self, *args, **kwargs):
         user = kwargs.pop("user")
         self.is_updating = kwargs.pop("is_updating")
@@ -30,7 +30,8 @@ class ReviewForm(forms.ModelForm):
         reviews_for_booking = Review.objects.filter(booking=booking)
         if not self.is_updating and reviews_for_booking.count() > 0:
             raise forms.ValidationError(
-                "You have already reviewed this booking and cannot review it again. If you would like, you can edit your existing review."
+                """You have already reviewed this booking and cannot review it
+                again. If you would like, you can edit your existing review."""
             )
 
     class Meta:
@@ -64,7 +65,7 @@ class PreVisitBookingForm(forms.ModelForm):
         if user:
             self.fields["pet"].queryset = Pet.objects.filter(owner=user)
 
-    # From here: https://docs.djangoproject.com/en/4.2/ref/forms/validation/#cleaning-and-validating-fields-that-depend-on-each-other
+    # From here: https://tinyurl.com/bddnyst6
     def clean(self):
         cleaned_data = super().clean()
         pet = cleaned_data.get("pet")
@@ -77,7 +78,14 @@ class PreVisitBookingForm(forms.ModelForm):
 
         if not self.is_updating and has_already_booked_pre_visit:
             raise forms.ValidationError(
-                "You have already booked a pre-visit for this pet, and cannot book another. If you would like to change the one you have booked, please visit the bookings page and edit your existing pre-visit. Please note that if your pet has already completed a pre-visit, you won't be able to book another one. Only one pre-visit is allowed per pet."
+                """You have already booked a pre-visit for this pet,
+                and cannot book another.
+                If you would like to change the one you have booked,
+                please visit the bookings page and edit
+                your existing pre-visit. Please note that
+                if your pet has already completed a pre-visit,
+                you won't be able to book another one.
+                Only one pre-visit is allowed per pet."""
             )
 
     class Meta:
@@ -86,9 +94,9 @@ class PreVisitBookingForm(forms.ModelForm):
             "start_date",
             "pet",
         )
-        # Adapted from here: https://stackoverflow.com/questions/22846048/django-form-as-p-datefield-not-showing-input-type-as-date
+        # Adapted from here: https://tinyurl.com/yu6wyx7y
         widgets = {
-            "start_date": forms.DateTimeInput(attrs={"type": "datetime-local"}),
+            "start_date": forms.DateTimeInput(attrs={"type": "datetime-local"}),  # noqa
         }
 
 
@@ -99,7 +107,7 @@ class FullVisitBookingForm(forms.ModelForm):
         if user:
             self.fields["pet"].queryset = Pet.objects.filter(owner=user)
 
-    # From here: https://docs.djangoproject.com/en/4.2/ref/forms/validation/#cleaning-and-validating-fields-that-depend-on-each-other
+    # From here: https://tinyurl.com/bddnyst6
     def clean(self):
         cleaned_data = super().clean()
         start_date = cleaned_data.get("start_date")
@@ -115,7 +123,8 @@ class FullVisitBookingForm(forms.ModelForm):
         bookings_for_pet = list(Booking.objects.filter(pet=pet))
         pre_visits_completed_for_pet = list(
             filter(
-                lambda booking: booking.has_ended() and booking.booking_type == 0,
+                lambda booking: booking.has_ended()
+                and booking.booking_type == 0,  # noqa
                 bookings_for_pet,
             )
         )
@@ -123,7 +132,9 @@ class FullVisitBookingForm(forms.ModelForm):
 
         if not has_completed_pre_visit:
             raise forms.ValidationError(
-                "This pet has not had a successful pre-visit yet so you cannot make a full booking. Please book and complete a pre-visit first."
+                """This pet has not had a successful pre-visit yet so you
+                cannot make a full booking. Please book and complete
+                a pre-visit first."""
             )
 
         # Check that the booking isn't too long
@@ -135,7 +146,8 @@ class FullVisitBookingForm(forms.ModelForm):
         max_days = MAX_STAY_DURATION_DAYS
         if len(dates) > max_days:
             raise forms.ValidationError(
-                f"You have chosen to book for too many days. Please choose at most {max_days} days"
+                f"""You have chosen to book for too many days.
+                Please choose at most {max_days} days"""
             )
 
         # Check that we have capacity for those dates.
@@ -152,7 +164,8 @@ class FullVisitBookingForm(forms.ModelForm):
             # If we have too many then error
             if len(bookings_on_date) >= MAX_BOOKINGS_PER_DAY:
                 raise forms.ValidationError(
-                    "We don't have enough space for those dates. Please choose different dates"
+                    """We don't have enough space for those dates.
+                    Please choose different dates"""
                 )
 
     class Meta:
@@ -162,8 +175,8 @@ class FullVisitBookingForm(forms.ModelForm):
             "end_date",
             "pet",
         )
-        # Adapted from here: https://stackoverflow.com/questions/22846048/django-form-as-p-datefield-not-showing-input-type-as-date
+        # Adapted from here: https://tinyurl.com/yu6wyx7y
         widgets = {
-            "start_date": forms.DateTimeInput(attrs={"type": "datetime-local"}),
+            "start_date": forms.DateTimeInput(attrs={"type": "datetime-local"}),  # noqa
             "end_date": forms.DateTimeInput(attrs={"type": "datetime-local"}),
         }
