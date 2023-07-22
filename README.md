@@ -120,6 +120,7 @@ CRUD methodology has been followed for bookings as well. Bookings can be created
 The reviews page takes the user to their personal list of reviews. The reviews in the MVP are just a score (1 to 5) left by the user only when the stay has ended. As per pets and bookings the user can here add a new review using the "new review" button. The form that they are taken to when clicking the button presents just two fields: score (a number from 1 to 5) and booking (dropdown showing only the bookings that have been completed for that user). When the user selects the score, if the imput is not a number 1-5 they will see and error message informing them that the only possible answer is a number 1-5. When they submit their rating they are then taken back to the reviews page where the new review will be dispayed along with a message informing them of the action succesully completed. 
 
 ![reviews list, add review](static/assets/images/reviews-list-and-add.png)
+![review score limit validation](static/assets/images/review-score-limit.png)
 
 Again following the CRUD methodology reviews can be updated and deleted. The process is the same as the one described for pets and bookings. The list item show the edit and the delete button. The edit button taked the user to the update review form and the delete button to the deletion message. Once the action has been successfully performed the user can see an "action successfull" message. 
 ![update and delete reviews](static/assets/images/update-delete-reviews.png)
