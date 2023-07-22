@@ -142,12 +142,10 @@ class FullVisitBookingForm(forms.ModelForm):
         for date in dates:
             # Get all the bookings that start or end on this date
             all_bookings = list(Booking.objects.all())
-            start_date_date = start_date.date()
-            end_date_date = end_date.date()
             bookings_on_date = list(
                 filter(
-                    lambda booking: booking.start_date.date() == start_date_date
-                    or booking.end_date.date() == end_date_date,
+                    lambda booking: booking.start_date.date() == date.date()
+                    or booking.end_date.date() == date.date(),
                     all_bookings,
                 )
             )
